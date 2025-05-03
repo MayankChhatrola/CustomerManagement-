@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorPrimary"
+        android:layout_margin="12dp"
+        app:cardElevation="@dimen/_2sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/_16sdp">
+
+            <!-- Branch -->
+            <EditText
+                android:id="@+id/etBranchName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Branch"
+                android:inputType="text"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/edittext_bg"
+                android:layout_marginBottom="@dimen/_12sdp" />
+
+            <!-- Policy Number -->
+            <EditText
+                android:id="@+id/etPolicyNumber"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Policy Number"
+                android:inputType="text"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/edittext_bg"
+                android:layout_marginBottom="@dimen/_12sdp" />
+
+            <!-- Start Date -->
+            <EditText
+                android:id="@+id/etStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Start Date"
+                android:inputType="date"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/edittext_bg"
+                android:layout_marginBottom="@dimen/_12sdp" />
+
+            <!-- Sum Assured -->
+            <EditText
+                android:id="@+id/etSumAssured"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Sum Assured"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/edittext_bg"
+                android:layout_marginBottom="@dimen/_12sdp" />
+
+            <!-- Plan/Term -->
+            <EditText
+                android:id="@+id/etPlan"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Plan/Term"
+                android:inputType="text"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/edittext_bg"
+                android:layout_marginBottom="@dimen/_12sdp" />
+
+            <!-- Premium -->
+            <EditText
+                android:id="@+id/etPolicyPremium"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Premium"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/edittext_bg" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

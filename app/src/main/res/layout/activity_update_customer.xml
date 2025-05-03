@@ -1,0 +1,1265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/updateCustomer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdateCustomer">
+
+    <RelativeLayout
+        android:id="@+id/tvHeaderUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivUpdateBack"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:background="@drawable/back"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_18sdp"
+            android:backgroundTint="@color/colorOnSecondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorOnSecondary"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_below="@id/tvHeaderUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:scrollbars="none"
+        android:fillViewport="true"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/_50sdp">
+
+            <!-- Personal Details Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_personal_details"
+                style="@style/CustomCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <!-- Section Header -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvPersonalDetails"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_centerVertical="true"
+                            android:text="Personal Details"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_15sdp" />
+
+
+                        <ImageView
+                            android:src="@drawable/down"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            app:tint="@color/colorPrimary" />
+
+                    </RelativeLayout>
+                    <!-- Section Content -->
+                    <LinearLayout
+                        android:id="@+id/container_personal_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/_16sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!-- Full Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etFullName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Full Name"
+                                    android:padding="8dp"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Father's Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etFatherName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Father's Name"
+                                    android:padding="8dp"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Mother's Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etMotherName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Mother's Name"
+                                    android:padding="8dp"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Address -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etAddress"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Address"
+                                    android:padding="8dp"
+                                    android:inputType="textPostalAddress" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Pincode -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etPincode"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Pincode"
+                                    android:padding="8dp"
+                                    android:inputType="number"
+                                    android:maxLength="6" />
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <!-- Birth Place -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etBirthPlace"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Birth Place"
+                                    android:padding="8dp"
+                                    android:inputType="text" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Birth Date -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etBirthDate"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Birth Date"
+                                    android:padding="8dp"
+                                    android:inputType="date" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Mobile Number -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etMobileNumber"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Mobile Number"
+                                    android:inputType="phone"
+                                    android:padding="8dp"
+                                    android:maxLength="10" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- email -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etEmailId"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Email Id"
+                                    android:padding="8dp"
+                                    android:inputType="textEmailAddress"/>
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- family Details Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_family_details"
+                style="@style/CustomCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <!-- Section Header -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvfamilyDetails"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:text="Family Details"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_15sdp" />
+
+
+                        <ImageView
+                            android:src="@drawable/down"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            app:tint="@color/colorPrimary" />
+
+                    </RelativeLayout>
+                    <!-- Section Content -->
+                    <LinearLayout
+                        android:id="@+id/container_family_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/_16sdp">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@android:color/white">
+
+                            <!--father-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                app:cardBackgroundColor="@color/colorPrimary"
+                                app:cardElevation="@dimen/_4sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_margin="@dimen/_12sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Father"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="8dp" />
+
+                                    <!-- Row: Age & Year -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:layout_marginBottom="8dp">
+
+                                        <EditText
+                                            android:id="@+id/etFatherAge"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Age"
+                                            android:inputType="number"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                        <Space
+                                            android:layout_width="8dp"
+                                            android:layout_height="wrap_content" />
+
+                                        <EditText
+                                            android:id="@+id/etFatherYear"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Year"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+                                    </LinearLayout>
+
+                                    <!-- Row: Condition -->
+                                    <EditText
+                                        android:id="@+id/etFatherCondition"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="Medical Condition"
+                                        android:inputType="text"
+                                        android:textSize="@dimen/_14sdp"
+                                        android:background="@drawable/edittext_bg"
+                                        android:padding="8dp" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <!--mother-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                app:cardBackgroundColor="@color/colorPrimary"
+                                app:cardElevation="@dimen/_4sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_margin="@dimen/_12sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Mother"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="8dp" />
+
+                                    <!-- Row: Age & Year -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:layout_marginBottom="8dp">
+
+                                        <EditText
+                                            android:id="@+id/etMotherAge"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Age"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                        <Space
+                                            android:layout_width="8dp"
+                                            android:layout_height="wrap_content" />
+
+                                        <EditText
+                                            android:id="@+id/etMotherYear"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Year"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+                                    </LinearLayout>
+
+                                    <!-- Row: Condition -->
+                                    <EditText
+                                        android:id="@+id/etMotherCondition"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="Medical Condition"
+                                        android:inputType="text"
+                                        android:textSize="@dimen/_14sdp"
+                                        android:background="@drawable/edittext_bg"
+                                        android:padding="8dp" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <!--brother-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                app:cardBackgroundColor="@color/colorPrimary"
+                                app:cardElevation="@dimen/_4sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_margin="@dimen/_12sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Brother"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="8dp" />
+
+                                    <!-- Row: Age & Year -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:layout_marginBottom="8dp">
+
+                                        <EditText
+                                            android:id="@+id/etBrotherAge"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Age"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                        <Space
+                                            android:layout_width="8dp"
+                                            android:layout_height="wrap_content" />
+
+                                        <EditText
+                                            android:id="@+id/etBrotherYear"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Year"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+                                    </LinearLayout>
+
+                                    <!-- Row: Condition -->
+                                    <EditText
+                                        android:id="@+id/eBrotherCondition"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="Medical Condition"
+                                        android:inputType="text"
+                                        android:textSize="@dimen/_14sdp"
+                                        android:background="@drawable/edittext_bg"
+                                        android:padding="8dp" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <!--Sister-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                app:cardBackgroundColor="@color/colorPrimary"
+                                app:cardElevation="@dimen/_4sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_margin="@dimen/_12sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Sister"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="8dp" />
+
+                                    <!-- Row: Age & Year -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:layout_marginBottom="8dp">
+
+                                        <EditText
+                                            android:id="@+id/etSisterAge"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Age"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                        <Space
+                                            android:layout_width="8dp"
+                                            android:layout_height="wrap_content" />
+
+                                        <EditText
+                                            android:id="@+id/etSisterYear"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Year"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+                                    </LinearLayout>
+
+                                    <!-- Row: Condition -->
+                                    <EditText
+                                        android:id="@+id/etSisterCondition"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="Medical Condition"
+                                        android:inputType="text"
+                                        android:textSize="@dimen/_14sdp"
+                                        android:background="@drawable/edittext_bg"
+                                        android:padding="8dp" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <!--Husband / Wife-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                app:cardBackgroundColor="@color/colorPrimary"
+                                app:cardElevation="@dimen/_4sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_margin="@dimen/_12sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Husband / Wife"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="8dp" />
+
+                                    <!-- Row: Age & Year -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:layout_marginBottom="8dp">
+
+                                        <EditText
+                                            android:id="@+id/etHusbandAge"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Age"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                        <Space
+                                            android:layout_width="8dp"
+                                            android:layout_height="wrap_content" />
+
+                                        <EditText
+                                            android:id="@+id/etHusbandYear"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Year"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+                                    </LinearLayout>
+
+                                    <!-- Row: Condition -->
+                                    <EditText
+                                        android:id="@+id/etHusbandCondition"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="Medical Condition"
+                                        android:inputType="text"
+                                        android:textSize="@dimen/_14sdp"
+                                        android:background="@drawable/edittext_bg"
+                                        android:padding="8dp" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!--Children-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                app:cardBackgroundColor="@color/colorPrimary"
+                                app:cardElevation="@dimen/_4sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_margin="@dimen/_12sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Children"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="8dp" />
+
+                                    <!-- Row: Age & Year -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:layout_marginBottom="8dp">
+
+                                        <EditText
+                                            android:id="@+id/etChildrenAge"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Age"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                        <Space
+                                            android:layout_width="8dp"
+                                            android:layout_height="wrap_content" />
+
+                                        <EditText
+                                            android:id="@+id/etChildrenYear"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Year"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+                                    </LinearLayout>
+
+                                    <!-- Row: Condition -->
+                                    <EditText
+                                        android:id="@+id/etChildrenCondition"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="Medical Condition"
+                                        android:inputType="text"
+                                        android:textSize="@dimen/_14sdp"
+                                        android:background="@drawable/edittext_bg"
+                                        android:padding="8dp" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- medical Details Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_meddical_details"
+                style="@style/CustomCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+
+                    <!-- Section Header -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvMedicalDetails"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:text="Medical Details"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_15sdp" />
+
+
+                        <ImageView
+                            android:src="@drawable/down"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            app:tint="@color/colorPrimary" />
+
+                    </RelativeLayout>
+                    <!-- Section Content -->
+                    <LinearLayout
+                        android:id="@+id/container_meddical_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/_16sdp">
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!-- Height -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etHeight"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Height (in cm)"
+                                    android:padding="8dp"
+                                    android:inputType="numberDecimal" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Weight -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etWeight"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Weight (in kg)"
+                                    android:padding="8dp"
+                                    android:inputType="numberDecimal" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Waist -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etWaist"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Waist (in cm)"
+                                    android:padding="8dp"
+                                    android:inputType="numberDecimal" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Chest -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etChest"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Chest (in cm)"
+                                    android:padding="8dp"
+                                    android:inputType="numberDecimal" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Any Illness -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etIlleness"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Any Illness"
+                                    android:padding="8dp"
+                                    android:inputType="textMultiLine" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Last Pregnancy Date -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etPregencyDate"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:padding="8dp"
+                                    android:hint="Last Pregnancy Date"
+                                    android:inputType="date" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- other Details Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_other_details"
+                style="@style/CustomCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+
+                    <!-- Section Header -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:text="Other Details"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_15sdp" />
+
+
+                        <ImageView
+                            android:src="@drawable/down"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            app:tint="@color/colorPrimary" />
+
+                    </RelativeLayout>
+                    <!-- Section Content -->
+                    <LinearLayout
+                        android:id="@+id/container_other_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/_12sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!-- Bank Account Holder Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etAccountHolderName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:padding="8dp"
+                                    android:hint="Bank Account Holder Name"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Bank Account Number -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etAccountNumber"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:padding="8dp"
+                                    android:hint="Bank Account Number"
+                                    android:inputType="number" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Bank Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etBanmeName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Bank Name"
+                                    android:padding="8dp"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- MICR -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etMicr"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="MICR"
+                                    android:padding="8dp"
+                                    android:inputType="number" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- IFSC Code -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etIfsc"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="IFSC Code"
+                                    android:padding="8dp"
+                                    android:inputType="text" />
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <!-- Education -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etEducation"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Education"
+                                    android:padding="8dp"
+                                    android:inputType="text" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Occupation -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/Occuption"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Occupation"
+                                    android:padding="8dp"
+                                    android:inputType="text" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Annual Income -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etAnnualIncome"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Annual Income"
+                                    android:padding="8dp"
+                                    android:inputType="numberDecimal" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Organization/Company Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etCompanyName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:padding="8dp"
+                                    android:hint="Organization/Company Name"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Since When -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etsinceWhen"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:padding="8dp"
+                                    android:hint="Since When (e.g., Year)"
+                                    android:inputType="date" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- Prevoius Policy Section Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPreviousePolicyDetails"
+                style="@style/CustomCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Header -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvPreviousPolicy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:text="Previous Policy"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:src="@drawable/down"
+                            app:tint="@color/colorPrimary" />
+                    </RelativeLayout>
+
+                    <!-- Dynamic Container -->
+                    <LinearLayout
+                        android:id="@+id/containerPrevoiusPolicyDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone" />
+
+                    <!-- Add Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAddMorePolicy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Add More Policy"
+                        android:layout_margin="16dp"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Fixed Button at the Bottom -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/update_button"
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_40sdp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:strokeColor="@color/colorPrimary"
+        android:layout_marginBottom="@dimen/_50sdp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_18sdp"
+            android:text="Update"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:layout_gravity="center"
+            android:textColor="@color/colorOnSecondary"
+            />
+    </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>

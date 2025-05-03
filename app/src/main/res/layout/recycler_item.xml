@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView android:layout_below="@id/tvHeader"
+    android:id="@+id/card_personal_details"
+    style="@style/CustomCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_20sdp"
+    android:layout_marginLeft="@dimen/_20sdp"
+    android:layout_marginRight="@dimen/_20sdp"
+    android:layout_marginBottom="@dimen/_20sdp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp">
+
+        <TextView
+            android:id="@+id/tvCustomerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="@dimen/_17sdp"
+            android:layout_margin="@dimen/_10sdp"/>
+
+        <LinearLayout
+            android:layout_below="@id/tvCustomerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_margin="@dimen/_8sdp">
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mvcView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_weight="1"
+                app:cardCornerRadius="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_4sdp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:strokeColor="@color/colorPrimary">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="View"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorOnSecondary"
+                    />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mvcEdit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_4sdp"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:strokeColor="@color/colorPrimary">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="Edit"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorOnSecondary"
+                    />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mvcDelete"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/_4sdp"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:strokeColor="@color/colorPrimary">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="Delete"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorOnSecondary"
+                    />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

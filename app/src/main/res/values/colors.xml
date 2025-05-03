@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary colors -->
+    <color name="colorPrimary">#F5914E</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+
+    <!-- Secondary colors -->
+    <color name="colorSecondary">#086CFD</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+
+    <!-- Background and Surface -->
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorOnBackground">#1C1C1E</color>
+    <color name="colorSurface">#F5F7FA</color>
+    <color name="colorOnSurface">#2C2C2E</color>
+
+    <!-- Other -->
+    <color name="colorOutline">#D1D5DB</color>
+    <color name="colorSuccess">#28A745</color>
+    <color name="colorError">#DC3545</color>
+    <color name="black">#000000</color>
+
+    <color name="gray">#888888</color>
+
+</resources>
