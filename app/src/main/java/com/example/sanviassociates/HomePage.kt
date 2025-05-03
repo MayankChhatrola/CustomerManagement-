@@ -5,8 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_ADDRESS
+import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_ENTRY_ID
+import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_FULL_NAME
+import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_TABLE
 import com.example.sanviassociates.databinding.ActivityHomePageBinding
 
 class HomePage : AppCompatActivity() {
@@ -32,14 +36,13 @@ class HomePage : AppCompatActivity() {
             startActivity(Intent(this, AddCustomer::class.java))
         }
 
-
         // Set up SearchView functionality
         setupSearchView()
     }
 
     override fun onResume() {
         super.onResume()
-        setupRecyclerView()
+        setupRecyclerView() // Refresh RecyclerView on resume
     }
 
     private fun setupSearchView() {
@@ -61,9 +64,6 @@ class HomePage : AppCompatActivity() {
         })
     }
 
-
-
-
     private fun filterEntries(query: String) {
         val filteredList = fullEntryList.filter { it.customerName.contains(query, ignoreCase = true) }
         adapter.updateData(filteredList)
@@ -73,62 +73,40 @@ class HomePage : AppCompatActivity() {
         val groupedData: MutableList<EntryData> = mutableListOf()
         val db = databaseHelper.readableDatabase
 
+        // Corrected query
         val query = """
-        SELECT entry_id, 
-               (SELECT fieldValue FROM ${DatabaseHelper.TABLE_NAME} 
-                WHERE fieldName = 'etFullName' AND entry_id = e.entry_id LIMIT 1) AS customerName,
-               GROUP_CONCAT(fieldName || ': ' || fieldValue, '\n') AS details
-        FROM ${DatabaseHelper.TABLE_NAME} e
-        GROUP BY entry_id
-        ORDER BY entry_id DESC
+        SELECT $CUSTOMER_COLUMN_ENTRY_ID AS entry_id, 
+               $CUSTOMER_COLUMN_FULL_NAME AS customerName,
+               $CUSTOMER_COLUMN_ADDRESS AS address
+        FROM $CUSTOMER_TABLE
+        ORDER BY $CUSTOMER_COLUMN_ENTRY_ID DESC
     """
         val cursor = db.rawQuery(query, null)
 
         if (cursor.moveToFirst()) {
             do {
                 val entryId = cursor.getInt(cursor.getColumnIndexOrThrow("entry_id"))
-                val customerName =
-                    cursor.getString(cursor.getColumnIndexOrThrow("customerName")) ?: "Unknown"
-                val details =
-                    cursor.getString(cursor.getColumnIndexOrThrow("details")) ?: "No details available"
+                val customerName = cursor.getString(cursor.getColumnIndexOrThrow("customerName")) ?: "Unknown"
+                val address = cursor.getString(cursor.getColumnIndexOrThrow("address")) ?: "No details available"
 
                 // Log values to debug
-                Log.d("Database", "Entry ID: $entryId, Customer Name: $customerName, Details: $details")
+                Log.d("Database", "Entry ID: $entryId, Customer Name: $customerName, Address: $address")
 
                 // Add to list
-                groupedData.add(EntryData(entryId, customerName, details))
+                groupedData.add(EntryData(entryId, customerName, address))
             } while (cursor.moveToNext())
+        } else {
+            Log.d("Database", "No data found in CustomerDetails table.")
         }
         cursor.close()
 
         return groupedData
     }
 
-//    private fun setupRecyclerView() {
-//        fullEntryList = fetchEntriesFromDatabase() // Fetch all entries from the database
-//        adapter = HomePageAdapter(
-//            dataList = fullEntryList,
-//            onViewClick = { entryData ->
-//                // Handle View action
-//                showCustomerDetails(entryData)
-//            },
-//            onEditClick = { entryData ->
-//                // Handle Edit action
-//                editCustomer(entryData)
-//            },
-//            onDeleteClick = { entryData ->
-//                // Handle Delete action
-//                deleteCustomer(entryData)
-//            }
-//        )
-//        homepageBinding.recyclerView.layoutManager = LinearLayoutManager(this)
-//        homepageBinding.recyclerView.adapter = adapter
-//    }
-
     private fun setupRecyclerView() {
-        val entryList = fetchEntriesFromDatabase()
-        val adapter = HomePageAdapter(
-            dataList = entryList,
+        fullEntryList = fetchEntriesFromDatabase() // Fetch all entries from the database
+        adapter = HomePageAdapter(
+            dataList = fullEntryList,
             onViewClick = { entryData ->
                 // Handle View action
                 showCustomerDetails(entryData)
@@ -136,7 +114,7 @@ class HomePage : AppCompatActivity() {
             onEditClick = { entryData ->
                 // Handle Edit action
                 val intent = Intent(this, UpdateCustomer::class.java)
-                intent.putExtra("UNIQUE_ID", entryData.entryId) // Pass the unique ID to the UpdateCustomer activity
+                intent.putExtra("UNIQUE_ID", entryData.entryId)
                 startActivity(intent)
             },
             onDeleteClick = { entryData ->
@@ -147,25 +125,22 @@ class HomePage : AppCompatActivity() {
         homepageBinding.recyclerView.layoutManager = LinearLayoutManager(this)
         homepageBinding.recyclerView.adapter = adapter
     }
+
     private fun showCustomerDetails(entryData: EntryData) {
         // TODO: Implement functionality to show customer details
     }
 
-    private fun editCustomer(entryData: EntryData) {
-        // TODO: Implement functionality to edit customer details
-    }
-
     private fun deleteCustomer(entryData: EntryData) {
         val entryId = entryData.entryId // Assuming `entryId` exists in EntryData class
-        val rowsDeleted = databaseHelper.deleteDataByEntryId(entryId)
+        val customerDeleted = databaseHelper.deleteCustomerData(entryId)
+        val policiesDeleted = databaseHelper.deletePolicyData(entryId)
 
-        if (rowsDeleted > 0) {
-            Toast.makeText(this, "Customer deleted successfully!", Toast.LENGTH_SHORT).show()
+        if (customerDeleted > 0) {
+            Toast.makeText(this, "Customer and associated policies deleted successfully!", Toast.LENGTH_SHORT).show()
             // Refresh RecyclerView
             setupRecyclerView()
         } else {
             Toast.makeText(this, "Failed to delete customer. Please try again.", Toast.LENGTH_SHORT).show()
         }
     }
-
 }

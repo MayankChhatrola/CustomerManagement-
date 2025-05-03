@@ -1,4 +1,260 @@
-/*
+//package com.example.sanviassociates
+//
+//import android.content.ContentValues
+//import android.os.Bundle
+//import android.util.Log
+//import android.view.LayoutInflater
+//import android.view.View
+//import android.view.ViewGroup
+//import android.widget.EditText
+//import android.widget.LinearLayout
+//import android.widget.Toast
+//import androidx.appcompat.app.AppCompatActivity
+//import com.example.sanviassociates.databinding.ActivityUpdateCustomerBinding
+//
+//class UpdateCustomer : AppCompatActivity() {
+//
+//    private lateinit var binding: ActivityUpdateCustomerBinding
+//    private var policyCounter = 1 // Counter for dynamically added policies
+//    private lateinit var databaseHelper: DatabaseHelper // SQLite Database Helper
+//    private var customerEntryId: Int = -1 // Customer Entry ID passed from HomePage
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        binding = ActivityUpdateCustomerBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+//
+//        // Initialize SQLite Database Helper
+//        databaseHelper = DatabaseHelper(this)
+//
+//        // Get customer entry ID from intent
+//        customerEntryId = intent.getIntExtra("UNIQUE_ID", -1)
+//
+//        // Set up click listeners for visibility toggling
+//        setupSectionVisibilityListeners()
+//
+//        // Handle "Add More Policy" button
+//        binding.btnAddMorePolicy.setOnClickListener {
+//            addMorePolicy()
+//        }
+//
+//        // Handle "View Policy" button
+//        binding.btnViewPolicy.setOnClickListener {
+//            fetchAndDisplayPolicies()
+//        }
+//
+//        // Handle "Update" button
+//        binding.updateButton.setOnClickListener {
+//            updateCustomerData()
+//        }
+//
+//        // Handle "Back" button
+//        binding.ivUpdateBack.setOnClickListener {
+//            onBackPressed()
+//        }
+//
+//        // Fetch and populate customer data
+//        fetchAndPopulateCustomerData()
+//    }
+//
+//    // Section: Visibility Management
+//    private fun setupSectionVisibilityListeners() {
+//        binding.cardPersonalDetails.setOnClickListener {
+//            toggleContainerVisibility(binding.containerPersonalDetails)
+//        }
+//        binding.cardFamilyDetails.setOnClickListener {
+//            toggleContainerVisibility(binding.containerFamilyDetails)
+//        }
+//        binding.cardMeddicalDetails.setOnClickListener {
+//            toggleContainerVisibility(binding.containerMeddicalDetails)
+//        }
+//        binding.cardOtherDetails.setOnClickListener {
+//            toggleContainerVisibility(binding.containerOtherDetails)
+//        }
+//        binding.cardPreviousePolicyDetails.setOnClickListener {
+//            toggleContainerVisibility(binding.containerPrevoiusPolicyDetails)
+//        }
+//    }
+//
+//    private fun toggleContainerVisibility(selectedContainer: View) {
+//        val isVisible = selectedContainer.visibility == View.VISIBLE
+//
+//        // Hide all containers
+//        binding.containerPersonalDetails.visibility = View.GONE
+//        binding.containerFamilyDetails.visibility = View.GONE
+//        binding.containerMeddicalDetails.visibility = View.GONE
+//        binding.containerOtherDetails.visibility = View.GONE
+//        binding.containerPrevoiusPolicyDetails.visibility = View.GONE
+//        binding.btnAddMorePolicy.visibility = View.GONE
+//        binding.btnViewPolicy.visibility = View.GONE
+//
+//        // Show the selected container if it was hidden
+//        if (!isVisible) {
+//            selectedContainer.visibility = View.VISIBLE
+//            if (selectedContainer.id == R.id.containerPrevoiusPolicyDetails) {
+//                binding.btnAddMorePolicy.visibility = View.VISIBLE
+//                binding.btnViewPolicy.visibility = View.VISIBLE
+//            }
+//        }
+//    }
+//
+//    // Section: Fetch and Populate Customer Data
+//    private fun fetchAndPopulateCustomerData() {
+//        if (customerEntryId == -1) {
+//            Toast.makeText(this, "Invalid customer ID.", Toast.LENGTH_SHORT).show()
+//            finish()
+//            return
+//        }
+//
+//        val cursor = databaseHelper.selectCustomerData(customerEntryId)
+//        if (cursor.moveToFirst()) {
+//            do {
+//                populateEditText(binding.containerPersonalDetails, cursor)
+//                populateEditText(binding.containerFamilyDetails, cursor)
+//                populateEditText(binding.containerMeddicalDetails, cursor)
+//                populateEditText(binding.containerOtherDetails, cursor)
+//            } while (cursor.moveToNext())
+//        }
+//        cursor.close()
+//    }
+//
+//    private fun populateEditText(view: View, cursor: android.database.Cursor) {
+//        if (view is EditText) {
+//            val fieldName = resources.getResourceEntryName(view.id)
+//            view.setText(cursor.getString(cursor.getColumnIndexOrThrow(fieldName)))
+//        } else if (view is ViewGroup) {
+//            for (i in 0 until view.childCount) {
+//                populateEditText(view.getChildAt(i), cursor)
+//            }
+//        }
+//    }
+//
+//    // Section: Fetch and Display Policy Data
+//    private fun fetchAndDisplayPolicies() {
+//        val cursor = databaseHelper.selectPolicyData(customerEntryId)
+//        val parentLayout = binding.containerPrevoiusPolicyDetails
+//
+//        parentLayout.removeAllViews() // Clear existing policies
+//        policyCounter = 1
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                val inflater = LayoutInflater.from(this)
+//                val policyView = inflater.inflate(R.layout.container_prevoius_policy_details, null)
+//                policyView.tag = "policy_${policyCounter++}"
+//                populateEditText(policyView, cursor)
+//                parentLayout.addView(policyView)
+//            } while (cursor.moveToNext())
+//        } else {
+//            Toast.makeText(this, "No policies found for this customer.", Toast.LENGTH_SHORT).show()
+//        }
+//        cursor.close()
+//    }
+//
+//    // Section: Add More Policy Button
+//    private fun addMorePolicy() {
+//        val inflater = LayoutInflater.from(this)
+//        val newPolicyView = inflater.inflate(R.layout.container_prevoius_policy_details, null)
+//        newPolicyView.tag = "policy_${policyCounter++}"
+//
+//        val parentLayout = binding.containerPrevoiusPolicyDetails
+//        parentLayout.addView(newPolicyView)
+//    }
+//
+//    // Section: Handle Update Button
+//    private fun updateCustomerData() {
+//        val customerData = ContentValues()
+//        val policyDataList = mutableListOf<Pair<Int?, ContentValues>>() // Pair of policy_id and policy data
+//
+//        // Collect customer data
+//        collectCustomerData(binding.containerPersonalDetails, customerData)
+//        collectCustomerData(binding.containerFamilyDetails, customerData)
+//        collectCustomerData(binding.containerMeddicalDetails, customerData)
+//        collectCustomerData(binding.containerOtherDetails, customerData)
+//
+//        // Validate that customer name (etFullName) is present
+//        val customerName = customerData.getAsString("etFullName")
+//        if (customerName.isNullOrEmpty()) {
+//            Toast.makeText(this, "Customer Name is required. Please enter it before updating.", Toast.LENGTH_SHORT).show()
+//            return
+//        }
+//
+//        // Update customer data in the database
+//        val customerUpdateResult = databaseHelper.updateCustomerData(customerEntryId, customerData)
+//
+//        if (customerUpdateResult == 0) {
+//            Toast.makeText(this, "Error updating customer data. Please try again.", Toast.LENGTH_SHORT).show()
+//            return
+//        }
+//
+//        // Collect policy data from dynamically added layouts
+//        val parentLayout = binding.containerPrevoiusPolicyDetails
+//        for (i in 0 until parentLayout.childCount) {
+//            val child = parentLayout.getChildAt(i)
+//            if (child.tag != null && child.tag.toString().startsWith("policy_")) {
+//                val policyData = ContentValues()
+//                collectPolicyData(child, policyData)
+//
+//                // Check if the policy has an existing ID (stored as a tag in the parent view)
+//                val policyId = child.getTag(R.id.policy_id_tag) as? Int
+//
+//                // Add the customer ID to the policy data
+//                policyData.put("customer_id", customerEntryId)
+//
+//                // Add to the list of policies to update/insert
+//                policyDataList.add(Pair(policyId, policyData))
+//            }
+//        }
+//
+//        // Update or Insert Policy Data in the Database
+//        for ((policyId, policyData) in policyDataList) {
+//            if (policyId != null) {
+//                // Update the existing policy
+//                val policyUpdateResult = databaseHelper.updatePolicyData(policyId, policyData)
+//                if (policyUpdateResult == 0) {
+//                    Log.e("Database", "Failed to update policy with ID $policyId: $policyData")
+//                }
+//            } else {
+//                // Insert a new policy
+//                val policyInsertResult = databaseHelper.insertPolicyData(policyData)
+//                if (policyInsertResult == -1L) {
+//                    Log.e("Database", "Failed to insert new policy: $policyData")
+//                }
+//            }
+//        }
+//
+//        Toast.makeText(this, "Customer and Policies successfully updated!", Toast.LENGTH_SHORT).show()
+//        Log.d("Database", "Customer ID $customerEntryId and policies updated successfully.")
+//        finish()
+//    }
+//    private fun collectCustomerData(view: View, customerData: ContentValues) {
+//        if (view is EditText) {
+//            val fieldName = resources.getResourceEntryName(view.id) // Get field name from resource ID
+//            val fieldValue = view.text.toString().trim()
+//            if (fieldValue.isNotEmpty()) {
+//                customerData.put(fieldName, fieldValue)
+//            }
+//        } else if (view is ViewGroup) {
+//            for (i in 0 until view.childCount) {
+//                collectCustomerData(view.getChildAt(i), customerData)
+//            }
+//        }
+//    }
+//
+//    private fun collectPolicyData(view: View, policyData: ContentValues) {
+//        if (view is EditText) {
+//            val fieldName = resources.getResourceEntryName(view.id) // Get field name from resource ID
+//            val fieldValue = view.text.toString().trim()
+//            if (fieldValue.isNotEmpty()) {
+//                policyData.put(fieldName, fieldValue)
+//            }
+//        } else if (view is ViewGroup) {
+//            for (i in 0 until view.childCount) {
+//                collectPolicyData(view.getChildAt(i), policyData)
+//            }
+//        }
+//    }
+//}
 package com.example.sanviassociates
 
 import android.content.ContentValues
@@ -6,262 +262,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.example.sanviassociates.databinding.ActivityUpdateCustomerBinding
-
-class UpdateCustomer : AppCompatActivity() {
-
-    private lateinit var binding: ActivityUpdateCustomerBinding
-    private lateinit var databaseHelper: DatabaseHelper // SQLite Database Helper
-    private var policyCounter = 1 // Counter for dynamically added policies
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityUpdateCustomerBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        // Initialize database helper
-        databaseHelper = DatabaseHelper(this)
-
-        // Set up click listeners for visibility toggling
-        setupSectionVisibilityListeners()
-
-        // Handle "Add More Policy" button
-        binding.btnAddMorePolicy.setOnClickListener {
-            addMorePolicy()
-        }
-
-
-        // Get unique ID from intent
-        val customerId = intent.getIntExtra("UNIQUE_ID", -1)
-        if (customerId == -1) {
-            Log.e("UpdateCustomer", "Invalid customer ID passed to the activity.")
-            Toast.makeText(this, "Invalid Customer ID", Toast.LENGTH_SHORT).show()
-            finish() // Exit the activity if the ID is invalid
-        } else {
-            // Load and display customer data based on the customerId
-            fetchAndSetCustomerData(customerId)
-        }
-
-
-
-        // Handle update button click
-        binding.updateButton.setOnClickListener {
-            if (isSingleFieldUpdate()) {
-                // Single field update logic
-                updateSingleField(customerId)
-            } else {
-                // Multiple field update logic
-                updateMultipleFields(customerId)
-            }
-        }
-
-        // Handle back button click
-        binding.ivUpdateBack.setOnClickListener {
-            onBackPressed()
-        }
-    }
-
-    // Section: Visibility Management
-    private fun setupSectionVisibilityListeners() {
-        binding.cardPersonalDetails.setOnClickListener {
-            toggleContainerVisibility(binding.containerPersonalDetails)
-        }
-        binding.cardFamilyDetails.setOnClickListener {
-            toggleContainerVisibility(binding.containerFamilyDetails)
-        }
-        binding.cardMeddicalDetails.setOnClickListener {
-            toggleContainerVisibility(binding.containerMeddicalDetails)
-        }
-        binding.cardOtherDetails.setOnClickListener {
-            toggleContainerVisibility(binding.containerOtherDetails)
-        }
-        binding.cardPreviousePolicyDetails.setOnClickListener {
-            toggleContainerVisibility(binding.containerPrevoiusPolicyDetails)
-        }
-    }
-
-    private fun toggleContainerVisibility(selectedContainer: View) {
-        val isVisible = selectedContainer.visibility == View.VISIBLE
-
-        // Hide all containers
-        binding.containerPersonalDetails.visibility = View.GONE
-        binding.containerFamilyDetails.visibility = View.GONE
-        binding.containerMeddicalDetails.visibility = View.GONE
-        binding.containerOtherDetails.visibility = View.GONE
-        binding.containerPrevoiusPolicyDetails.visibility = View.GONE
-        binding.btnAddMorePolicy.visibility = View.GONE
-
-        // Show the selected container if it was hidden
-        if (!isVisible) {
-            selectedContainer.visibility = View.VISIBLE
-            if (selectedContainer.id == R.id.containerPrevoiusPolicyDetails) {
-                binding.btnAddMorePolicy.visibility = View.VISIBLE
-            }
-        }
-    }
-
-    // Section: Dynamic Policy Management
-    private fun addMorePolicy() {
-        val inflater = LayoutInflater.from(this)
-        val newPolicyView = inflater.inflate(R.layout.container_prevoius_policy_details, null)
-        newPolicyView.tag = "policy_${policyCounter++}"
-
-        val parentLayout = binding.containerPrevoiusPolicyDetails.parent as LinearLayout
-        val addMoreButtonIndex = parentLayout.indexOfChild(binding.btnAddMorePolicy)
-        parentLayout.addView(newPolicyView, addMoreButtonIndex)
-    }
-
-    */
-/**
-     * Fetch customer data based on the unique ID and display it in the EditText fields.
-     *//*
-
-    private fun fetchAndSetCustomerData(customerId: Int) {
-        val db = databaseHelper.readableDatabase
-        val cursor = db.rawQuery(
-            "SELECT * FROM ${DatabaseHelper.TABLE_NAME} WHERE ${DatabaseHelper.COLUMN_ENTRY_ID} = ?",
-            arrayOf(customerId.toString())
-        )
-
-        if (cursor.moveToFirst()) {
-            do {
-                val fieldName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_FIELD_NAME))
-                val fieldValue = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_FIELD_VALUE))
-                setEditTextValue(fieldName, fieldValue)
-            } while (cursor.moveToNext())
-        }
-        cursor.close()
-    }
-
-    */
-/**
-     * Set the value of an EditText based on the field name from the database.
-     *//*
-
-    private fun setEditTextValue(fieldName: String, fieldValue: String) {
-        when (fieldName) {
-            "etFullName" -> binding.etFullName.setText(fieldValue)
-            "etFatherName" -> binding.etFatherName.setText(fieldValue)
-            "etMotherName" -> binding.etMotherName.setText(fieldValue)
-            "etAddress" -> binding.etAddress.setText(fieldValue)
-            "etPincode" -> binding.etPincode.setText(fieldValue)
-            "etBirthPlace" -> binding.etBirthPlace.setText(fieldValue)
-            "etBirthDate" -> binding.etBirthDate.setText(fieldValue)
-            "etMobileNumber" -> binding.etMobileNumber.setText(fieldValue)
-            "etEmailId" -> binding.etEmailId.setText(fieldValue)
-            "etFatherAge" -> binding.etFatherAge.setText(fieldValue)
-            "etFatherYear" -> binding.etFatherYear.setText(fieldValue)
-            "etFatherCondition" -> binding.etFatherCondition.setText(fieldValue)
-            "etMotherAge" -> binding.etMotherAge.setText(fieldValue)
-            "etMotherYear" -> binding.etMotherYear.setText(fieldValue)
-            "etMotherCondition" -> binding.etMotherCondition.setText(fieldValue)
-            "etHeight" -> binding.etHeight.setText(fieldValue)
-            "etWeight" -> binding.etWeight.setText(fieldValue)
-            "etWaist" -> binding.etWaist.setText(fieldValue)
-            "etChest" -> binding.etChest.setText(fieldValue)
-            "etIlleness" -> binding.etIlleness.setText(fieldValue)
-            "etPregencyDate" -> binding.etPregencyDate.setText(fieldValue)
-            "etAccountHolderName" -> binding.etAccountHolderName.setText(fieldValue)
-            "etAccountNumber" -> binding.etAccountNumber.setText(fieldValue)
-            "etBanmeName" -> binding.etBanmeName.setText(fieldValue)
-            "etMicr" -> binding.etMicr.setText(fieldValue)
-            "etIfsc" -> binding.etIfsc.setText(fieldValue)
-            "etEducation" -> binding.etEducation.setText(fieldValue)
-            "Occuption" -> binding.Occuption.setText(fieldValue)
-            "etAnnualIncome" -> binding.etAnnualIncome.setText(fieldValue)
-            "etCompanyName" -> binding.etCompanyName.setText(fieldValue)
-            "etsinceWhen" -> binding.etsinceWhen.setText(fieldValue)
-            else -> Log.w("UpdateCustomer", "Field not recognized: $fieldName")
-        }
-    }
-
-    */
-/**
-     * Check if a single field is being updated.
-     *//*
-
-    private fun isSingleFieldUpdate(): Boolean {
-        // Logic to determine if only one field is being updated
-        // For simplicity, we'll assume that if only one field is modified, it's a single field update
-        // Otherwise, it's a multiple field update
-        return false // Set to true if you want to test single field updates
-    }
-
-    */
-/**
-     * Update a single field in the database.
-     *//*
-
-    private fun updateSingleField(customerId: Int) {
-        val fieldName = "etFullName" // Replace with the actual field name being updated
-        val newValue = binding.etFullName.text.toString()
-
-        val rowsAffected = databaseHelper.updateData(customerId, fieldName, newValue)
-        if (rowsAffected > 0) {
-            Toast.makeText(this, "Field updated successfully!", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Field update failed!", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    */
-/**
-     * Update multiple fields in the database.
-     *//*
-
-    private fun updateMultipleFields(customerId: Int) {
-        val updatedValues = mapOf(
-            "etFullName" to binding.etFullName.text.toString(),
-            "etFatherName" to binding.etFatherName.text.toString(),
-            "etMotherName" to binding.etMotherName.text.toString(),
-            "etAddress" to binding.etAddress.text.toString(),
-            "etPincode" to binding.etPincode.text.toString(),
-            "etBirthPlace" to binding.etBirthPlace.text.toString(),
-            "etBirthDate" to binding.etBirthDate.text.toString(),
-            "etMobileNumber" to binding.etMobileNumber.text.toString(),
-            "etEmailId" to binding.etEmailId.text.toString(),
-            "etFatherAge" to binding.etFatherAge.text.toString(),
-            "etFatherYear" to binding.etFatherYear.text.toString(),
-            "etFatherCondition" to binding.etFatherCondition.text.toString(),
-            "etMotherAge" to binding.etMotherAge.text.toString(),
-            "etMotherYear" to binding.etMotherYear.text.toString(),
-            "etMotherCondition" to binding.etMotherCondition.text.toString(),
-            "etHeight" to binding.etHeight.text.toString(),
-            "etWeight" to binding.etWeight.text.toString(),
-            "etWaist" to binding.etWaist.text.toString(),
-            "etChest" to binding.etChest.text.toString(),
-            "etIlleness" to binding.etIlleness.text.toString(),
-            "etPregencyDate" to binding.etPregencyDate.text.toString(),
-            "etAccountHolderName" to binding.etAccountHolderName.text.toString(),
-            "etAccountNumber" to binding.etAccountNumber.text.toString(),
-            "etBanmeName" to binding.etBanmeName.text.toString(),
-            "etMicr" to binding.etMicr.text.toString(),
-            "etIfsc" to binding.etIfsc.text.toString(),
-            "etEducation" to binding.etEducation.text.toString(),
-            "Occuption" to binding.Occuption.text.toString(),
-            "etAnnualIncome" to binding.etAnnualIncome.text.toString(),
-            "etCompanyName" to binding.etCompanyName.text.toString(),
-            "etsinceWhen" to binding.etsinceWhen.text.toString()
-        )
-
-        val rowsAffected = databaseHelper.updateAllDataByEntryId(customerId, updatedValues)
-        if (rowsAffected > 0) {
-            Toast.makeText(this, "All fields updated successfully!", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Field update failed!", Toast.LENGTH_SHORT).show()
-        }
-    }
-}*/
-package com.example.sanviassociates
-
-import android.content.ContentValues
-import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -271,18 +272,22 @@ import com.example.sanviassociates.databinding.ActivityUpdateCustomerBinding
 class UpdateCustomer : AppCompatActivity() {
 
     private lateinit var binding: ActivityUpdateCustomerBinding
-    private lateinit var databaseHelper: DatabaseHelper
     private var policyCounter = 1 // Counter for dynamically added policies
+    private lateinit var databaseHelper: DatabaseHelper // SQLite Database Helper
+    private var customerEntryId: Int = -1 // Customer Entry ID passed from HomePage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUpdateCustomerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize database helper
+        // Initialize SQLite Database Helper
         databaseHelper = DatabaseHelper(this)
 
-        // Setup visibility toggling for sections
+        // Get customer entry ID from intent
+        customerEntryId = intent.getIntExtra("UNIQUE_ID", -1)
+
+        // Set up click listeners for visibility toggling
         setupSectionVisibilityListeners()
 
         // Handle "Add More Policy" button
@@ -290,29 +295,25 @@ class UpdateCustomer : AppCompatActivity() {
             addMorePolicy()
         }
 
-        // Get unique ID from intent
-        val customerId = intent.getIntExtra("UNIQUE_ID", -1)
-        if (customerId == -1) {
-            Log.e("UpdateCustomer", "Invalid customer ID passed to the activity.")
-            Toast.makeText(this, "Invalid Customer ID", Toast.LENGTH_SHORT).show()
-            finish()
-        } else {
-            // Fetch and set customer data
-            fetchAndSetCustomerData(customerId)
+        // Handle "View Policy" button
+        binding.btnViewPolicy.setOnClickListener {
+            fetchAndDisplayPolicies()
         }
 
-        // Handle update button click
+        // Handle "Update" button
         binding.updateButton.setOnClickListener {
-            updateCustomerData(customerId)
+            updateCustomerData()
         }
 
-        // Handle back button click
+        // Handle "Back" button
         binding.ivUpdateBack.setOnClickListener {
             onBackPressed()
         }
+
+        // Fetch and populate customer data
+        fetchAndPopulateCustomerData()
     }
 
-    // Section: Visibility Management
     private fun setupSectionVisibilityListeners() {
         binding.cardPersonalDetails.setOnClickListener {
             toggleContainerVisibility(binding.containerPersonalDetails)
@@ -333,25 +334,81 @@ class UpdateCustomer : AppCompatActivity() {
 
     private fun toggleContainerVisibility(selectedContainer: View) {
         val isVisible = selectedContainer.visibility == View.VISIBLE
-
-        // Hide all containers
         binding.containerPersonalDetails.visibility = View.GONE
         binding.containerFamilyDetails.visibility = View.GONE
         binding.containerMeddicalDetails.visibility = View.GONE
         binding.containerOtherDetails.visibility = View.GONE
         binding.containerPrevoiusPolicyDetails.visibility = View.GONE
         binding.btnAddMorePolicy.visibility = View.GONE
+        binding.btnViewPolicy.visibility = View.GONE
 
-        // Show the selected container if it was hidden
         if (!isVisible) {
             selectedContainer.visibility = View.VISIBLE
             if (selectedContainer.id == R.id.containerPrevoiusPolicyDetails) {
                 binding.btnAddMorePolicy.visibility = View.VISIBLE
+                binding.btnViewPolicy.visibility = View.VISIBLE
             }
         }
     }
 
-    // Section: Dynamic Policy Management
+    private fun fetchAndPopulateCustomerData() {
+        if (customerEntryId == -1) {
+            Toast.makeText(this, "Invalid customer ID.", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
+        val cursor = databaseHelper.selectCustomerData(customerEntryId)
+        if (cursor.moveToFirst()) {
+            do {
+                populateEditText(binding.containerPersonalDetails, cursor)
+                populateEditText(binding.containerFamilyDetails, cursor)
+                populateEditText(binding.containerMeddicalDetails, cursor)
+                populateEditText(binding.containerOtherDetails, cursor)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+    }
+
+    private fun populateEditText(view: View, cursor: android.database.Cursor) {
+        if (view is EditText) {
+            val fieldName = resources.getResourceEntryName(view.id)
+            view.setText(cursor.getString(cursor.getColumnIndexOrThrow(fieldName)))
+        } else if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                populateEditText(view.getChildAt(i), cursor)
+            }
+        }
+    }
+
+    private fun fetchAndDisplayPolicies() {
+        val cursor = databaseHelper.selectPolicyData(customerEntryId)
+        val parentLayout = binding.containerPrevoiusPolicyDetails
+
+        parentLayout.removeAllViews() // Clear existing policies
+        policyCounter = 1
+
+        if (cursor.moveToFirst()) {
+            do {
+                val inflater = LayoutInflater.from(this)
+                val policyView = inflater.inflate(R.layout.container_prevoius_policy_details, null)
+
+                // Set policy_id as a tag
+                val policyId = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+                policyView.setTag(R.id.policy_id_tag, policyId)
+
+                // Populate policy fields
+                populateEditText(policyView, cursor)
+
+                // Add the policy view to the parent layout
+                parentLayout.addView(policyView)
+            } while (cursor.moveToNext())
+        } else {
+            Toast.makeText(this, "No policies found for this customer.", Toast.LENGTH_SHORT).show()
+        }
+        cursor.close()
+    }
+
     private fun addMorePolicy() {
         val inflater = LayoutInflater.from(this)
         val newPolicyView = inflater.inflate(R.layout.container_prevoius_policy_details, null)
@@ -361,84 +418,86 @@ class UpdateCustomer : AppCompatActivity() {
         parentLayout.addView(newPolicyView)
     }
 
-    /**
-     * Fetch and set customer data, including policy details.
-     */
-    private fun fetchAndSetCustomerData(customerId: Int) {
-        val db = databaseHelper.readableDatabase
+    private fun updateCustomerData() {
+        val customerData = ContentValues()
+        val policyDataList = mutableListOf<Pair<Int?, ContentValues>>()
 
-        // Fetch general data
-        val cursor = db.rawQuery(
-            "SELECT * FROM ${DatabaseHelper.TABLE_NAME} WHERE ${DatabaseHelper.COLUMN_ENTRY_ID} = ?",
-            arrayOf(customerId.toString())
-        )
+        collectCustomerData(binding.containerPersonalDetails, customerData)
+        collectCustomerData(binding.containerFamilyDetails, customerData)
+        collectCustomerData(binding.containerMeddicalDetails, customerData)
+        collectCustomerData(binding.containerOtherDetails, customerData)
 
-        if (cursor.moveToFirst()) {
-            do {
-                val fieldName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_FIELD_NAME))
-                val fieldValue = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_FIELD_VALUE))
-                setEditTextValue(fieldName, fieldValue)
-            } while (cursor.moveToNext())
+        val customerName = customerData.getAsString("etFullName")
+        if (customerName.isNullOrEmpty()) {
+            Toast.makeText(this, "Customer Name is required. Please enter it before updating.", Toast.LENGTH_SHORT).show()
+            return
         }
-        cursor.close()
 
-        // Fetch policy data
-        val policies = databaseHelper.getPoliciesByEntryId(customerId)
-        for (policy in policies) {
-            addPolicyView(policy)
+        val customerUpdateResult = databaseHelper.updateCustomerData(customerEntryId, customerData)
+
+        if (customerUpdateResult == 0) {
+            Toast.makeText(this, "Error updating customer data. Please try again.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val parentLayout = binding.containerPrevoiusPolicyDetails
+        for (i in 0 until parentLayout.childCount) {
+            val child = parentLayout.getChildAt(i)
+            if (child.tag != null && child.tag.toString().startsWith("policy_")) {
+                val policyData = ContentValues()
+                collectPolicyData(child, policyData)
+
+                val policyId = child.getTag(R.id.policy_id_tag) as? Int
+                policyData.put("customer_id", customerEntryId)
+
+                policyDataList.add(Pair(policyId, policyData))
+            }
+        }
+
+        for ((policyId, policyData) in policyDataList) {
+            if (policyId != null) {
+                val policyUpdateResult = databaseHelper.updatePolicyData(policyId, policyData)
+                if (policyUpdateResult == 0) {
+                    Log.e("Database", "Failed to update policy with ID $policyId: $policyData")
+                }
+            } else {
+                val policyInsertResult = databaseHelper.insertPolicyData(policyData)
+                if (policyInsertResult == -1L) {
+                    Log.e("Database", "Failed to insert new policy: $policyData")
+                }
+            }
+        }
+
+        Toast.makeText(this, "Customer and Policies successfully updated!", Toast.LENGTH_SHORT).show()
+        Log.d("Database", "Customer ID $customerEntryId and policies updated successfully.")
+        finish()
+    }
+
+    private fun collectCustomerData(view: View, customerData: ContentValues) {
+        if (view is EditText) {
+            val fieldName = resources.getResourceEntryName(view.id)
+            val fieldValue = view.text.toString().trim()
+            if (fieldValue.isNotEmpty()) {
+                customerData.put(fieldName, fieldValue)
+            }
+        } else if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                collectCustomerData(view.getChildAt(i), customerData)
+            }
         }
     }
 
-    /**
-     * Add a policy view and populate it with data.
-     */
-    private fun addPolicyView(policy: Map<String, String>) {
-        val inflater = LayoutInflater.from(this)
-        val policyView = inflater.inflate(R.layout.container_prevoius_policy_details, null)
-
-        policyView.findViewById<EditText>(R.id.etBranchName).setText(policy["Branch"])
-        policyView.findViewById<EditText>(R.id.etPolicyNumber).setText(policy["PolicyNumber"])
-        policyView.findViewById<EditText>(R.id.etStartDate).setText(policy["StartDate"])
-        policyView.findViewById<EditText>(R.id.etSumAssured).setText(policy["SumAssured"])
-        policyView.findViewById<EditText>(R.id.etPlan).setText(policy["Plan"])
-        policyView.findViewById<EditText>(R.id.etPolicyPremium).setText(policy["Premium"])
-
-        binding.containerPrevoiusPolicyDetails.addView(policyView)
-    }
-
-    /**
-     * Set the value of an EditText based on the field name from the database.
-     */
-    private fun setEditTextValue(fieldName: String, fieldValue: String) {
-        when (fieldName) {
-            "etFullName" -> binding.etFullName.setText(fieldValue)
-            "etFatherName" -> binding.etFatherName.setText(fieldValue)
-            "etMotherName" -> binding.etMotherName.setText(fieldValue)
-            "etAddress" -> binding.etAddress.setText(fieldValue)
-            "etPincode" -> binding.etPincode.setText(fieldValue)
-            // Add other fields as necessary
-            else -> Log.w("UpdateCustomer", "Field not recognized: $fieldName")
-        }
-    }
-
-    /**
-     * Update customer data in the database.
-     */
-    private fun updateCustomerData(customerId: Int) {
-        val generalData = mapOf(
-            "etFullName" to binding.etFullName.text.toString(),
-            "etFatherName" to binding.etFatherName.text.toString(),
-            "etMotherName" to binding.etMotherName.text.toString(),
-            "etAddress" to binding.etAddress.text.toString(),
-            "etPincode" to binding.etPincode.text.toString()
-            // Add other fields as necessary
-        )
-        val rowsUpdated = databaseHelper.updateAllDataByEntryId(customerId, generalData)
-
-        if (rowsUpdated > 0) {
-            Toast.makeText(this, "Customer data updated successfully!", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Failed to update customer data!", Toast.LENGTH_SHORT).show()
+    private fun collectPolicyData(view: View, policyData: ContentValues) {
+        if (view is EditText) {
+            val fieldName = resources.getResourceEntryName(view.id)
+            val fieldValue = view.text.toString().trim()
+            if (fieldValue.isNotEmpty()) {
+                policyData.put(fieldName, fieldValue)
+            }
+        } else if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                collectPolicyData(view.getChildAt(i), policyData)
+            }
         }
     }
 }

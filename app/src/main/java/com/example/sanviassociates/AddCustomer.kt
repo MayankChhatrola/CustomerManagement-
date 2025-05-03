@@ -1,5 +1,6 @@
 package com.example.sanviassociates
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -96,49 +97,66 @@ class AddCustomer : AppCompatActivity() {
 
     // Section: Handle Submit Button
     private fun fetchSaveAndClearFields() {
-        val data = mutableListOf<Pair<String, String>>()
+        val customerData = ContentValues()
+        val policyDataList = mutableListOf<ContentValues>()
 
-        // Collect data from static sections
-        collectEditTextData(binding.containerPersonalDetails, data)
-        collectEditTextData(binding.containerFamilyDetails, data)
-        collectEditTextData(binding.containerMeddicalDetails, data)
-        collectEditTextData(binding.containerOtherDetails, data)
-
-        // Collect data from dynamically added layouts
-        val parentLayout = binding.containerPrevoiusPolicyDetails.parent as LinearLayout
-        for (i in 0 until parentLayout.childCount) {
-            val child = parentLayout.getChildAt(i)
-            if (child.tag != null && child.tag.toString().startsWith("policy_")) {
-                collectEditTextData(child, data)
-            }
-        }
+        // Collect customer data
+        collectCustomerData(binding.containerPersonalDetails, customerData)
+        collectCustomerData(binding.containerFamilyDetails, customerData)
+        collectCustomerData(binding.containerMeddicalDetails, customerData)
+        collectCustomerData(binding.containerOtherDetails, customerData)
 
         // Validate that customer name (etFullName) is present
-        val customerName = data.find { it.first == "etFullName" }?.second
+        val customerName = customerData.getAsString("etFullName")
         if (customerName.isNullOrEmpty()) {
             Toast.makeText(this, "Customer Name is required. Please enter it before submitting.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Get the last entry ID and increment it
-        val lastEntryId = databaseHelper.getLastEntryId()
-        val newEntryId = lastEntryId + 1
+        // Get the last customer entry ID and increment it
+        val lastEntryId = databaseHelper.getLastCustomerEntryId()
+        val newCustomerId = lastEntryId + 1
+        customerData.put("entry_id", newCustomerId)
 
-        // Save data to SQLite database
-        var isDataInserted = true
-        for ((fieldName, fieldValue) in data) {
-            val success = databaseHelper.insertData(newEntryId, fieldName, fieldValue)
-            if (!success) {
-                isDataInserted = false
-                Log.e("Database", "Failed to insert data: $fieldName -> $fieldValue")
+        // Insert customer data into the database
+        val customerInsertResult = databaseHelper.insertCustomerData(customerData)
+
+        if (customerInsertResult == -1L) {
+            Toast.makeText(this, "Error saving customer data. Please try again.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Collect policy data from dynamically added layouts
+        val parentLayout = binding.containerPrevoiusPolicyDetails.parent as LinearLayout
+        for (i in 0 until parentLayout.childCount) {
+            val child = parentLayout.getChildAt(i)
+            if (child.tag != null && child.tag.toString().startsWith("policy_")) {
+                val policyData = ContentValues()
+                collectPolicyData(child, policyData)
+
+                // Add the customer ID to the policy data
+                policyData.put("customer_id", newCustomerId)
+
+                // Add to the list of policies to insert
+                policyDataList.add(policyData)
             }
         }
 
-        if (isDataInserted) {
-            Toast.makeText(this, "Data successfully saved!", Toast.LENGTH_SHORT).show()
-            Log.d("Database", "Data successfully saved with entry ID $newEntryId: $data")
+        // Insert policy data into the database
+        var policiesInserted = true
+        for (policyData in policyDataList) {
+            val policyInsertResult = databaseHelper.insertPolicyData(policyData)
+            if (policyInsertResult == -1L) {
+                policiesInserted = false
+                Log.e("Database", "Failed to insert policy data: $policyData")
+            }
+        }
+
+        if (policiesInserted) {
+            Toast.makeText(this, "Customer and Policies successfully saved!", Toast.LENGTH_SHORT).show()
+            Log.d("Database", "Customer ID $newCustomerId and policies saved successfully.")
         } else {
-            Toast.makeText(this, "Error saving some data. Please try again.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error saving some policies. Please try again.", Toast.LENGTH_SHORT).show()
         }
 
         // Clear all fields
@@ -148,18 +166,32 @@ class AddCustomer : AppCompatActivity() {
         collapseAllSections()
     }
 
-
-    private fun collectEditTextData(view: View, data: MutableList<Pair<String, String>>) {
+    private fun collectCustomerData(view: View, customerData: ContentValues) {
         if (view is EditText) {
             val fieldName = resources.getResourceEntryName(view.id) // Get field name from resource ID
             val fieldValue = view.text.toString().trim()
             if (fieldValue.isNotEmpty()) {
-                data.add(Pair(fieldName, fieldValue))
+                customerData.put(fieldName, fieldValue)
             }
         } else if (view is ViewGroup) {
             // Recursively check child views
             for (i in 0 until view.childCount) {
-                collectEditTextData(view.getChildAt(i), data)
+                collectCustomerData(view.getChildAt(i), customerData)
+            }
+        }
+    }
+
+    private fun collectPolicyData(view: View, policyData: ContentValues) {
+        if (view is EditText) {
+            val fieldName = resources.getResourceEntryName(view.id) // Get field name from resource ID
+            val fieldValue = view.text.toString().trim()
+            if (fieldValue.isNotEmpty()) {
+                policyData.put(fieldName, fieldValue)
+            }
+        } else if (view is ViewGroup) {
+            // Recursively check child views
+            for (i in 0 until view.childCount) {
+                collectPolicyData(view.getChildAt(i), policyData)
             }
         }
     }

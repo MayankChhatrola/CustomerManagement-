@@ -45,7 +45,6 @@
         android:layout_below="@id/tvHeader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="60dp"
         android:scrollbars="none"
         android:fillViewport="true"
         android:layout_marginTop="@dimen/_20sdp"
@@ -55,8 +54,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginBottom="@dimen/_50sdp">
+            android:orientation="vertical">
 
             <!-- Personal Details Section -->
             <com.google.android.material.card.MaterialCardView
@@ -167,42 +165,6 @@
                                     android:inputType="textPersonName" />
                             </com.google.android.material.card.MaterialCardView>
 
-                            <!-- Address -->
-                            <com.google.android.material.card.MaterialCardView
-                                style="@style/CustomCardView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/_12sdp">
-
-                                <EditText
-                                    android:id="@+id/etAddress"
-                                    style="@style/CustomEditText"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:hint="Address"
-                                    android:padding="8dp"
-                                    android:inputType="textPostalAddress" />
-                            </com.google.android.material.card.MaterialCardView>
-
-                            <!-- Pincode -->
-                            <com.google.android.material.card.MaterialCardView
-                                style="@style/CustomCardView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/_12sdp">
-
-                                <EditText
-                                    android:id="@+id/etPincode"
-                                    style="@style/CustomEditText"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:hint="Pincode"
-                                    android:padding="8dp"
-                                    android:inputType="number"
-                                    android:maxLength="6" />
-                            </com.google.android.material.card.MaterialCardView>
-
-
                             <!-- Birth Place -->
                             <com.google.android.material.card.MaterialCardView
                                 style="@style/CustomCardView"
@@ -270,6 +232,41 @@
                                     android:hint="Email Id"
                                     android:padding="8dp"
                                     android:inputType="textEmailAddress"/>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Address -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etAddress"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Address"
+                                    android:padding="8dp"
+                                    android:inputType="textPostalAddress" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Pincode -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etPincode"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Pincode"
+                                    android:padding="8dp"
+                                    android:inputType="number"
+                                    android:maxLength="6" />
                             </com.google.android.material.card.MaterialCardView>
 
                         </LinearLayout>
@@ -1081,6 +1078,39 @@
                                     android:inputType="text" />
                             </com.google.android.material.card.MaterialCardView>
 
+                            <!-- Pancard -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etPancard"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Pancard"
+                                    android:padding="8dp"
+                                    android:inputType="text" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Aadhar Number -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etAdharNumber"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Aadhar Number"
+                                    android:padding="8dp"
+                                    android:inputType="text" />
+                            </com.google.android.material.card.MaterialCardView>
 
                             <!-- Education -->
                             <com.google.android.material.card.MaterialCardView
@@ -1236,30 +1266,32 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+
+            <!-- Fixed Button at the Bottom -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/submit_button"
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_40sdp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_gravity="center"
+                app:strokeColor="@color/colorPrimary"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/_50sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_18sdp"
+                    android:text="Submit"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorOnSecondary"
+                    />
+            </com.google.android.material.card.MaterialCardView>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Fixed Button at the Bottom -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/submit_button"
-        android:layout_width="@dimen/_180sdp"
-        android:layout_height="@dimen/_40sdp"
-        app:cardBackgroundColor="@color/colorPrimary"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:strokeColor="@color/colorPrimary"
-        android:layout_marginBottom="@dimen/_50sdp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_18sdp"
-            android:text="Submit"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:layout_gravity="center"
-            android:textColor="@color/colorOnSecondary"
-            />
-    </com.google.android.material.card.MaterialCardView>
 
 </RelativeLayout>
