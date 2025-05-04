@@ -368,6 +368,23 @@
                                             android:layout_marginBottom="8dp">
 
                                             <EditText
+                                                android:id="@+id/etFatherYear"
+                                                android:layout_width="0dp"
+                                                android:layout_height="@dimen/_40sdp"
+                                                android:layout_weight="1"
+                                                android:background="@drawable/edittext_bg"
+                                                android:hint="Date of Birth"
+                                                android:focusable="false"
+                                                android:cursorVisible="false"
+                                                android:inputType="none"
+                                                android:padding="8dp"
+                                                android:textSize="@dimen/_14sdp" />
+
+                                            <Space
+                                                android:layout_width="8dp"
+                                                android:layout_height="wrap_content" />
+
+                                            <EditText
                                                 android:id="@+id/etFatherAge"
                                                 android:layout_width="0dp"
                                                 android:layout_height="@dimen/_40sdp"
@@ -378,20 +395,6 @@
                                                 android:background="@drawable/edittext_bg"
                                                 android:padding="8dp" />
 
-                                            <Space
-                                                android:layout_width="8dp"
-                                                android:layout_height="wrap_content" />
-
-                                            <EditText
-                                                android:id="@+id/etFatherYear"
-                                                android:layout_width="0dp"
-                                                android:layout_height="@dimen/_40sdp"
-                                                android:layout_weight="1"
-                                                android:hint="Year"
-                                                android:textSize="@dimen/_14sdp"
-                                                android:inputType="number"
-                                                android:background="@drawable/edittext_bg"
-                                                android:padding="8dp" />
                                         </LinearLayout>
 
                                         <!-- Row: Condition -->
@@ -439,6 +442,22 @@
                                             android:layout_marginBottom="8dp">
 
                                             <EditText
+                                                android:id="@+id/etMotherYear"
+                                                android:layout_width="0dp"
+                                                android:layout_height="@dimen/_40sdp"
+                                                android:layout_weight="1"
+                                                android:hint="Date of Birth"
+                                                android:textSize="@dimen/_14sdp"
+                                                android:focusable="false"
+                                                android:cursorVisible="false"
+                                                android:inputType="none"                                                 android:background="@drawable/edittext_bg"
+                                                android:padding="8dp" />
+
+                                            <Space
+                                                android:layout_width="8dp"
+                                                android:layout_height="wrap_content" />
+
+                                            <EditText
                                                 android:id="@+id/etMotherAge"
                                                 android:layout_width="0dp"
                                                 android:layout_height="@dimen/_40sdp"
@@ -449,20 +468,6 @@
                                                 android:background="@drawable/edittext_bg"
                                                 android:padding="8dp" />
 
-                                            <Space
-                                                android:layout_width="8dp"
-                                                android:layout_height="wrap_content" />
-
-                                            <EditText
-                                                android:id="@+id/etMotherYear"
-                                                android:layout_width="0dp"
-                                                android:layout_height="@dimen/_40sdp"
-                                                android:layout_weight="1"
-                                                android:hint="Year"
-                                                android:textSize="@dimen/_14sdp"
-                                                android:inputType="number"
-                                                android:background="@drawable/edittext_bg"
-                                                android:padding="8dp" />
                                         </LinearLayout>
 
                                         <!-- Row: Condition -->
@@ -510,13 +515,15 @@
                                             android:layout_marginBottom="8dp">
 
                                             <EditText
-                                                android:id="@+id/etBrotherAge"
+                                                android:id="@+id/etBrotherYear"
                                                 android:layout_width="0dp"
                                                 android:layout_height="@dimen/_40sdp"
                                                 android:layout_weight="1"
-                                                android:hint="Age"
+                                                android:hint="Date of Birth"
                                                 android:textSize="@dimen/_14sdp"
-                                                android:inputType="number"
+                                                android:focusable="false"
+                                                android:cursorVisible="false"
+                                                android:inputType="none"
                                                 android:background="@drawable/edittext_bg"
                                                 android:padding="8dp" />
 
@@ -525,11 +532,11 @@
                                                 android:layout_height="wrap_content" />
 
                                             <EditText
-                                                android:id="@+id/etBrotherYear"
+                                                android:id="@+id/etBrotherAge"
                                                 android:layout_width="0dp"
                                                 android:layout_height="@dimen/_40sdp"
                                                 android:layout_weight="1"
-                                                android:hint="Year"
+                                                android:hint="Age"
                                                 android:textSize="@dimen/_14sdp"
                                                 android:inputType="number"
                                                 android:background="@drawable/edittext_bg"
@@ -581,13 +588,15 @@
                                             android:layout_marginBottom="8dp">
 
                                             <EditText
-                                                android:id="@+id/etSisterAge"
+                                                android:id="@+id/etSisterYear"
                                                 android:layout_width="0dp"
                                                 android:layout_height="@dimen/_40sdp"
                                                 android:layout_weight="1"
-                                                android:hint="Age"
+                                                android:hint="Date of Birth"
                                                 android:textSize="@dimen/_14sdp"
-                                                android:inputType="number"
+                                                android:focusable="false"
+                                                android:cursorVisible="false"
+                                                android:inputType="none"
                                                 android:background="@drawable/edittext_bg"
                                                 android:padding="8dp" />
 
@@ -596,11 +605,11 @@
                                                 android:layout_height="wrap_content" />
 
                                             <EditText
-                                                android:id="@+id/etSisterYear"
+                                                android:id="@+id/etSisterAge"
                                                 android:layout_width="0dp"
                                                 android:layout_height="@dimen/_40sdp"
                                                 android:layout_weight="1"
-                                                android:hint="Year"
+                                                android:hint="Age"
                                                 android:textSize="@dimen/_14sdp"
                                                 android:inputType="number"
                                                 android:background="@drawable/edittext_bg"
@@ -652,6 +661,23 @@
                                             android:layout_marginBottom="8dp">
 
                                             <EditText
+                                                android:id="@+id/etHusbandYear"
+                                                android:layout_width="0dp"
+                                                android:layout_height="@dimen/_40sdp"
+                                                android:layout_weight="1"
+                                                android:hint="Date of Birth"
+                                                android:textSize="@dimen/_14sdp"
+                                                android:focusable="false"
+                                                android:cursorVisible="false"
+                                                android:inputType="none"
+                                                android:background="@drawable/edittext_bg"
+                                                android:padding="8dp" />
+
+                                            <Space
+                                                android:layout_width="8dp"
+                                                android:layout_height="wrap_content" />
+
+                                            <EditText
                                                 android:id="@+id/etHusbandAge"
                                                 android:layout_width="0dp"
                                                 android:layout_height="@dimen/_40sdp"
@@ -662,20 +688,6 @@
                                                 android:background="@drawable/edittext_bg"
                                                 android:padding="8dp" />
 
-                                            <Space
-                                                android:layout_width="8dp"
-                                                android:layout_height="wrap_content" />
-
-                                            <EditText
-                                                android:id="@+id/etHusbandYear"
-                                                android:layout_width="0dp"
-                                                android:layout_height="@dimen/_40sdp"
-                                                android:layout_weight="1"
-                                                android:hint="Year"
-                                                android:textSize="@dimen/_14sdp"
-                                                android:inputType="number"
-                                                android:background="@drawable/edittext_bg"
-                                                android:padding="8dp" />
                                         </LinearLayout>
 
                                         <!-- Row: Condition -->
@@ -722,6 +734,23 @@
                                             android:layout_marginBottom="8dp">
 
                                             <EditText
+                                                android:id="@+id/etChildrenYear"
+                                                android:layout_width="0dp"
+                                                android:layout_height="@dimen/_40sdp"
+                                                android:layout_weight="1"
+                                                android:hint="Date of Birth"
+                                                android:textSize="@dimen/_14sdp"
+                                                android:focusable="false"
+                                                android:cursorVisible="false"
+                                                android:inputType="none"
+                                                android:background="@drawable/edittext_bg"
+                                                android:padding="8dp" />
+
+                                            <Space
+                                                android:layout_width="8dp"
+                                                android:layout_height="wrap_content" />
+
+                                            <EditText
                                                 android:id="@+id/etChildrenAge"
                                                 android:layout_width="0dp"
                                                 android:layout_height="@dimen/_40sdp"
@@ -732,20 +761,6 @@
                                                 android:background="@drawable/edittext_bg"
                                                 android:padding="8dp" />
 
-                                            <Space
-                                                android:layout_width="8dp"
-                                                android:layout_height="wrap_content" />
-
-                                            <EditText
-                                                android:id="@+id/etChildrenYear"
-                                                android:layout_width="0dp"
-                                                android:layout_height="@dimen/_40sdp"
-                                                android:layout_weight="1"
-                                                android:hint="Year"
-                                                android:textSize="@dimen/_14sdp"
-                                                android:inputType="number"
-                                                android:background="@drawable/edittext_bg"
-                                                android:padding="8dp" />
                                         </LinearLayout>
 
                                         <!-- Row: Condition -->

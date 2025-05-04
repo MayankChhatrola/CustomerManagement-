@@ -2,6 +2,7 @@ package com.example.sanviassociates
 
 import android.content.ContentValues
 import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.sanviassociates.databinding.ActivityAddCustomerBinding
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
-import com.google.android.material.datepicker.MaterialDatePicker.Builder.datePicker
+import com.google.android.material.datepicker.MaterialDatePicker
 import java.util.Date
 import java.util.Locale
 
@@ -23,6 +24,7 @@ class AddCustomer : AppCompatActivity() {
     private lateinit var binding: ActivityAddCustomerBinding
     private var policyCounter = 1 // Counter for dynamically added policies
     private lateinit var databaseHelper: DatabaseHelper // SQLite Database Helper
+    private val yearToAgeMapping = mutableMapOf<EditText, EditText>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,16 @@ class AddCustomer : AppCompatActivity() {
         setupSectionVisibilityListeners()
 
         setupMaterialDatePicker()
+
+        // Map year fields to their corresponding age fields
+        yearToAgeMapping[binding.etFatherYear] = binding.etFatherAge
+        yearToAgeMapping[binding.etMotherYear] = binding.etMotherAge
+        yearToAgeMapping[binding.etBrotherYear] = binding.etBrotherAge
+        yearToAgeMapping[binding.etSisterYear] = binding.etSisterAge
+        yearToAgeMapping[binding.etHusbandYear] = binding.etHusbandAge
+        yearToAgeMapping[binding.etChildrenYear] = binding.etChildrenAge
+
+        setYearClickListeners()
 
         // Handle "Add More Policy" button
         binding.btnAddMorePolicy.setOnClickListener {
@@ -249,7 +261,7 @@ class AddCustomer : AppCompatActivity() {
                 .setValidator(DateValidatorPointBackward.now()) // Prevent future dates
 
             // Build the MaterialDatePicker
-            val datePicker = datePicker()
+            val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select Birth Date")
                 .setTheme(R.style.CustomMaterialDatePicker)
                 .setCalendarConstraints(constraintsBuilder.build()) // Add constraints
@@ -264,6 +276,49 @@ class AddCustomer : AppCompatActivity() {
                 val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 val selectedDate = sdf.format(Date(selection))
                 etBirthDate.setText(selectedDate)
+            }
+        }
+    }
+
+    private fun setYearClickListeners() {
+        for ((yearField, _) in yearToAgeMapping) {
+            yearField.setOnClickListener { openMaterialDatePicker(yearField) }
+        }
+    }
+
+    private fun openMaterialDatePicker(yearField: EditText) {
+        // Create constraints to prevent selecting future dates
+        val constraintsBuilder = CalendarConstraints.Builder()
+            .setValidator(DateValidatorPointBackward.now()) // Prevent future dates
+
+        // Build the MaterialDatePicker
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Select Date of Birth")
+            .setTheme(R.style.CustomMaterialDatePicker)
+            .setCalendarConstraints(constraintsBuilder.build()) // Apply constraints
+            .build()
+
+        // Show the MaterialDatePicker
+        datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
+
+        // Handle the date selection
+        datePicker.addOnPositiveButtonClickListener { selection ->
+            // Format the selected date to DD/MM/YYYY
+            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val selectedDate = Date(selection)
+            val formattedDate = sdf.format(selectedDate)
+
+            // Set the formatted date to the year field
+            yearField.setText(formattedDate)
+
+            // Calculate the age and set it to the corresponding age field
+            yearToAgeMapping[yearField]?.let { ageField ->
+                val calendar = Calendar.getInstance()
+                val selectedYear = Calendar.getInstance().apply { time = selectedDate }.get(Calendar.YEAR)
+                val currentYear = calendar.get(Calendar.YEAR)
+                val age = currentYear - selectedYear
+
+                ageField.setText(age.toString())
             }
         }
     }
