@@ -179,7 +179,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Birth Place"
                                     android:padding="8dp"
-                                    android:inputType="text" />
+                                    android:inputType="text"/>
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Birth Date -->
@@ -196,7 +196,9 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Birth Date"
                                     android:padding="8dp"
-                                    android:inputType="date" />
+                                    android:focusable="false"
+                                    android:cursorVisible="false"
+                                    android:inputType="none" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Mobile Number -->

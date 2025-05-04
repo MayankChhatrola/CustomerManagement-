@@ -127,7 +127,9 @@ class HomePage : AppCompatActivity() {
     }
 
     private fun showCustomerDetails(entryData: EntryData) {
-        // TODO: Implement functionality to show customer details
+        val intent = Intent(this, ViewCustomer::class.java)
+        intent.putExtra("UNIQUE_ID", entryData.entryId)
+        startActivity(intent)
     }
 
     private fun deleteCustomer(entryData: EntryData) {

@@ -1,6 +1,7 @@
 package com.example.sanviassociates
 
 import android.content.ContentValues
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,11 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sanviassociates.databinding.ActivityAddCustomerBinding
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.MaterialDatePicker.Builder.datePicker
+import java.util.Date
+import java.util.Locale
 
 class AddCustomer : AppCompatActivity() {
 
@@ -28,6 +34,8 @@ class AddCustomer : AppCompatActivity() {
 
         // Set up click listeners for visibility toggling
         setupSectionVisibilityListeners()
+
+        setupMaterialDatePicker()
 
         // Handle "Add More Policy" button
         binding.btnAddMorePolicy.setOnClickListener {
@@ -229,5 +237,34 @@ class AddCustomer : AppCompatActivity() {
         binding.containerOtherDetails.visibility = View.GONE
         binding.containerPrevoiusPolicyDetails.visibility = View.GONE
         binding.btnAddMorePolicy.visibility = View.GONE
+    }
+
+
+    private fun setupMaterialDatePicker() {
+        val etBirthDate: EditText = binding.etBirthDate
+
+        etBirthDate.setOnClickListener {
+            // Create constraints to prevent selecting future dates
+            val constraintsBuilder = CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointBackward.now()) // Prevent future dates
+
+            // Build the MaterialDatePicker
+            val datePicker = datePicker()
+                .setTitleText("Select Birth Date")
+                .setTheme(R.style.CustomMaterialDatePicker)
+                .setCalendarConstraints(constraintsBuilder.build()) // Add constraints
+                .build()
+
+            // Show the MaterialDatePicker
+            datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
+
+            // Handle the date selection
+            datePicker.addOnPositiveButtonClickListener { selection ->
+                // Format the selected date to DD/MM/YYYY
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val selectedDate = sdf.format(Date(selection))
+                etBirthDate.setText(selectedDate)
+            }
+        }
     }
 }

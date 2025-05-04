@@ -15,6 +15,9 @@
         android:theme="@style/Theme.SanviAssociates"
         tools:targetApi="31">
         <activity
+            android:name=".ViewCustomer"
+            android:exported="false" />
+        <activity
             android:name=".UpdateCustomer"
             android:exported="false" />
         <activity
