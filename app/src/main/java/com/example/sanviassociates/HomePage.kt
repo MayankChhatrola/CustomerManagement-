@@ -165,6 +165,7 @@ class HomePage : AppCompatActivity() {
         homepageBinding.recyclerView.adapter = adapter
     }
 
+    //pdf layout is not Proper
     fun generateLicFormPdf(context: Context, entryId: Int, dbHelper: DatabaseHelper) {
         val (customerCursor, policyCursor) = dbHelper.getCustomerWithPolicies(entryId)
 
