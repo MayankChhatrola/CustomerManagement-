@@ -165,7 +165,6 @@ class HomePage : AppCompatActivity() {
         homepageBinding.recyclerView.adapter = adapter
     }
 
-    //PDF CAN GENRATE BUT THERE IS NOT PROPER LAYOUT
     fun generateLicFormPdf(context: Context, entryId: Int, dbHelper: DatabaseHelper) {
         val (customerCursor, policyCursor) = dbHelper.getCustomerWithPolicies(entryId)
 
