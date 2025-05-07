@@ -1,145 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddCustomer">
+    android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvHeader"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textAllCaps="true"
-        android:textColor="@color/colorOnSecondary"
-        android:textSize="@dimen/_24sdp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content">
 
-
-        <!-- Personal Details Section -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_below="@id/tvHeader"
-            android:id="@+id/card_personal_details"
-            app:cardBackgroundColor="@color/colorPrimary"
+        <!-- Header -->
+        <TextView
+            android:text="Sanvi Associates"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_20sdp">
+            android:layout_height="wrap_content" />
 
+        <!-- Personal Details -->
+        <EditText android:hint="Full Name" style="@style/FormEditText"/>
+        <EditText android:hint="Father's Name" style="@style/FormEditText"/>
+        <EditText android:hint="Surname" style="@style/FormEditText"/>
+        <EditText android:hint="Father's Occupation" style="@style/FormEditText"/>
+        <EditText android:hint="Date of Birth" style="@style/FormEditText"/>
+        <EditText android:hint="Gender" style="@style/FormEditText"/>
+        <EditText android:hint="Marital Status" style="@style/FormEditText"/>
+        <EditText android:hint="Education/Institution Name" style="@style/FormEditText"/>
+        <EditText android:hint="Address" style="@style/FormEditText"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_12sdp"
-                android:layout_marginLeft="@dimen/_12sdp"
-                android:layout_marginBottom="@dimen/_20sdp">
+        <!-- Policy Details -->
+        <TextView android:text="If any Policy in own/spouse/parents name" style="@style/SectionHeader"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_60sdp"
-                    android:orientation="vertical"
-                    android:background="@drawable/edittext_bg"
-                    android:layout_weight="1"
-                    android:gravity="center">
+        <TableLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TableRow>
+                <TextView android:text="Company" style="@style/TableHeader"/>
+                <TextView android:text="Policy No." style="@style/TableHeader"/>
+                <TextView android:text="Start Date" style="@style/TableHeader"/>
+                <TextView android:text="Sum Assured" style="@style/TableHeader"/>
+                <TextView android:text="Plan/Term" style="@style/TableHeader"/>
+                <TextView android:text="Mode" style="@style/TableHeader"/>
+                <TextView android:text="Premium" style="@style/TableHeader"/>
+            </TableRow>
+            <!-- Add rows dynamically in code if needed -->
+        </TableLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Years"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_15sdp" />
+        <!-- Family Medical History -->
+        <TextView android:text="If any major illness in family" style="@style/SectionHeader"/>
 
+        <TableLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TableRow>
+                <TextView android:text="Family Member" style="@style/TableHeader"/>
+                <TextView android:text="Age" style="@style/TableHeader"/>
+                <TextView android:text="Year" style="@style/TableHeader"/>
+                <TextView android:text="Illness" style="@style/TableHeader"/>
+                <TextView android:text="Cause of Death" style="@style/TableHeader"/>
+            </TableRow>
+            <!-- Example rows -->
+            <TableRow>
+                <EditText android:hint="Father" style="@style/TableCell"/>
+                <EditText android:hint="Age" style="@style/TableCell"/>
+                <EditText android:hint="Year" style="@style/TableCell"/>
+                <EditText android:hint="Illness" style="@style/TableCell"/>
+                <EditText android:hint="Cause" style="@style/TableCell"/>
+            </TableRow>
+            <!-- Add rows as needed -->
+        </TableLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="21"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_24sdp" />
+        <!-- Physical Details -->
+        <EditText android:hint="Height (cm)" style="@style/FormEditText"/>
+        <EditText android:hint="Weight (kg)" style="@style/FormEditText"/>
+        <EditText android:hint="Chest (cm)" style="@style/FormEditText"/>
+        <EditText android:hint="Waist (cm)" style="@style/FormEditText"/>
+        <EditText android:hint="Any surgery before" style="@style/FormEditText"/>
+        <EditText android:hint="Last medical check date" style="@style/FormEditText"/>
+        <EditText android:hint="Form submission date" style="@style/FormEditText"/>
 
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="8dp"
-                    android:layout_height="wrap_content" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_60sdp"
-                    android:background="@drawable/edittext_bg"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Months"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_15sdp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="05"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_24sdp" />
-
-
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="8dp"
-                    android:layout_height="wrap_content" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_60sdp"
-                    android:background="@drawable/edittext_bg"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Days"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_15sdp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="25"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_24sdp" />
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-        </com.google.android.material.card.MaterialCardView>
-
-</RelativeLayout>
+        <!-- Bank Details -->
+        <EditText android:hint="Bank Account No." style="@style/FormEditText"/>
+        <EditText android:hint="Bank Name" style="@style/FormEditText"/>
+        <EditText android:hint="IFSC Code" style="@style/FormEditText"/>
+        <EditText android:hint="MICR Code" style="@style/FormEditText"/>
+        <EditText android:hint="Mobile No." style="@style/FormEditText"/>
+        <EditText android:hint="Signature" style="@style/FormEditText"/>
+    </LinearLayout>
+</ScrollView>

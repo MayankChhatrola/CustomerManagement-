@@ -150,8 +150,8 @@ class HomePage : AppCompatActivity() {
                 Log.d("HomePage", "View clicked for: ${entryData.customerName}")
                 Toast.makeText(this, "Generating PDF for ${entryData.customerName}", Toast.LENGTH_SHORT).show()
                 val dbHelper = DatabaseHelper(this@HomePage) // Create an instance of DatabaseHelper
-                           generateLicFormPdf(this@HomePage, entryData.entryId, dbHelper)
-                          },
+                generateLicFormPdf(this@HomePage, entryData.entryId, dbHelper)
+            },
             onEditClick = { entryData ->
                 val intent = Intent(this, UpdateCustomer::class.java)
                 intent.putExtra("UNIQUE_ID", entryData.entryId)
