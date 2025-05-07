@@ -1,176 +1,24 @@
-//package com.example.sanviassociates
-//
-//import android.content.Intent
-//import android.os.Bundle
-//import android.util.Log
-//import android.widget.Toast
-//import androidx.appcompat.app.AppCompatActivity
-//import androidx.appcompat.widget.SearchView
-//import androidx.recyclerview.widget.LinearLayoutManager
-//import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_ADDRESS
-//import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_ENTRY_ID
-//import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_FULL_NAME
-//import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_TABLE
-//import com.example.sanviassociates.databinding.ActivityHomePageBinding
-//
-//class HomePage : AppCompatActivity() {
-//
-//    private lateinit var homepageBinding: ActivityHomePageBinding
-//    private lateinit var databaseHelper: DatabaseHelper
-//    private lateinit var adapter: HomePageAdapter
-//    private var fullEntryList: List<EntryData> = listOf() // Full list of entries for search functionality
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        homepageBinding = ActivityHomePageBinding.inflate(layoutInflater)
-//        setContentView(homepageBinding.root)
-//
-//        // Initialize database helper
-//        databaseHelper = DatabaseHelper(this)
-//
-//        // Set up RecyclerView
-//        setupRecyclerView()
-//
-//        // Add customer button
-//        homepageBinding.mcvAddCustomer.setOnClickListener {
-//            startActivity(Intent(this, AddCustomer::class.java))
-//        }
-//
-//        // Set up SearchView functionality
-//        setupSearchView()
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        setupRecyclerView() // Refresh RecyclerView on resume
-//    }
-//
-//    private fun setupSearchView() {
-//        homepageBinding.searchView.queryHint = "Search customer by name"
-//        homepageBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                query?.let {
-//                    filterEntries(it)
-//                }
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                newText?.let {
-//                    filterEntries(it)
-//                }
-//                return true
-//            }
-//        })
-//    }
-//
-//    private fun filterEntries(query: String) {
-//        val filteredList = fullEntryList.filter { it.customerName.contains(query, ignoreCase = true) }
-//        adapter.updateData(filteredList)
-//    }
-//
-//    private fun fetchEntriesFromDatabase(): List<EntryData> {
-//        val groupedData: MutableList<EntryData> = mutableListOf()
-//        val db = databaseHelper.readableDatabase
-//
-//        // Corrected query
-//        val query = """
-//        SELECT $CUSTOMER_COLUMN_ENTRY_ID AS entry_id,
-//               $CUSTOMER_COLUMN_FULL_NAME AS customerName,
-//               $CUSTOMER_COLUMN_ADDRESS AS address
-//        FROM $CUSTOMER_TABLE
-//        ORDER BY $CUSTOMER_COLUMN_ENTRY_ID DESC
-//    """
-//        val cursor = db.rawQuery(query, null)
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                val entryId = cursor.getInt(cursor.getColumnIndexOrThrow("entry_id"))
-//                val customerName = cursor.getString(cursor.getColumnIndexOrThrow("customerName")) ?: "Unknown"
-//                val address = cursor.getString(cursor.getColumnIndexOrThrow("address")) ?: "No details available"
-//
-//                // Log values to debug
-//                Log.d("Database", "Entry ID: $entryId, Customer Name: $customerName, Address: $address")
-//
-//                // Add to list
-//                groupedData.add(EntryData(entryId, customerName, address))
-//            } while (cursor.moveToNext())
-//        } else {
-//            Log.d("Database", "No data found in CustomerDetails table.")
-//        }
-//        cursor.close()
-//
-//        return groupedData
-//    }
-//
-//    private fun setupRecyclerView() {
-//        fullEntryList = fetchEntriesFromDatabase() // Fetch all entries from the database
-//        adapter = HomePageAdapter(
-//            dataList = fullEntryList,
-//            onViewClick = { entryData ->
-//                // Handle View action
-//
-//            },
-//            onEditClick = { entryData ->
-//                // Handle Edit action
-//                val intent = Intent(this, UpdateCustomer::class.java)
-//                intent.putExtra("UNIQUE_ID", entryData.entryId)
-//                startActivity(intent)
-//            },
-//            onDeleteClick = { entryData ->
-//                // Handle Delete action
-//                deleteCustomer(entryData)
-//            }
-//        )
-//        homepageBinding.recyclerView.layoutManager = LinearLayoutManager(this)
-//        homepageBinding.recyclerView.adapter = adapter
-//    }
-//
-//    private fun deleteCustomer(entryData: EntryData) {
-//        val entryId = entryData.entryId // Assuming `entryId` exists in EntryData class
-//        val customerDeleted = databaseHelper.deleteCustomerData(entryId)
-//        val policiesDeleted = databaseHelper.deletePolicyData(entryId)
-//
-//        if (customerDeleted > 0) {
-//            Toast.makeText(this, "Customer and associated policies deleted successfully!", Toast.LENGTH_SHORT).show()
-//            // Refresh RecyclerView
-//            setupRecyclerView()
-//        } else {
-//            Toast.makeText(this, "Failed to delete customer. Please try again.", Toast.LENGTH_SHORT).show()
-//        }
-//    }
-//}
 package com.example.sanviassociates
 
-import android.Manifest
+import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.media.MediaScannerConnection
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.Settings
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.media3.exoplayer.source.chunk.Chunk
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_ADDRESS
 import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_ENTRY_ID
 import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_FULL_NAME
-import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_FATHER_NAME
-import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_MOBILE_NUMBER
-import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_MOTHER_NAME
-import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_PAN_CARD
-import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_ADHAR_CARD
 import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_TABLE
 import com.example.sanviassociates.databinding.ActivityHomePageBinding
 import com.example.sanviassociates.helpermethod.PermissionUtil
-import com.itextpdf.kernel.geom.PageSize
+import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
@@ -178,8 +26,22 @@ import com.itextpdf.layout.element.Cell
 import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
 import com.itextpdf.layout.properties.TextAlignment
+import kotlinx.coroutines.launch
+import com.itextpdf.kernel.colors.ColorConstants
+import com.itextpdf.kernel.geom.PageSize
+import com.itextpdf.layout.borders.Border
+import com.itextpdf.layout.element.*
 import com.itextpdf.layout.properties.UnitValue
 import java.io.File
+import android.media.MediaScannerConnection
+import android.net.Uri
+import android.os.Build
+import android.provider.Settings
+import android.view.View
+import com.itextpdf.layout.Canvas
+import com.itextpdf.layout.element.Image
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas
+
 
 class HomePage : AppCompatActivity() {
 
@@ -194,6 +56,7 @@ class HomePage : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         homepageBinding = ActivityHomePageBinding.inflate(layoutInflater)
         setContentView(homepageBinding.root)
 
@@ -211,6 +74,9 @@ class HomePage : AppCompatActivity() {
         // Add customer button
         homepageBinding.mcvAddCustomer.setOnClickListener {
             startActivity(Intent(this, AddCustomer::class.java))
+        }
+        homepageBinding.ivConverter.setOnClickListener {
+            startActivity(Intent(this, Converter::class.java))
         }
 
         // Set up SearchView functionality
@@ -283,8 +149,9 @@ class HomePage : AppCompatActivity() {
             onViewClick = { entryData ->
                 Log.d("HomePage", "View clicked for: ${entryData.customerName}")
                 Toast.makeText(this, "Generating PDF for ${entryData.customerName}", Toast.LENGTH_SHORT).show()
-                generateCustomerPdf(entryData.entryId)
-            },
+                val dbHelper = DatabaseHelper(this@HomePage) // Create an instance of DatabaseHelper
+                           generateLicFormPdf(this@HomePage, entryData.entryId, dbHelper)
+                          },
             onEditClick = { entryData ->
                 val intent = Intent(this, UpdateCustomer::class.java)
                 intent.putExtra("UNIQUE_ID", entryData.entryId)
@@ -298,172 +165,126 @@ class HomePage : AppCompatActivity() {
         homepageBinding.recyclerView.adapter = adapter
     }
 
-    /*private fun generateCustomerPdf(entryId: Int) {
-        // Check All Files Access permission (Android 11+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-            Toast.makeText(this, "Please grant 'All Files Access' permission to save PDF.", Toast.LENGTH_LONG).show()
-            val intent = Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
-            intent.data = Uri.parse("package:$packageName")
-            startActivity(intent)
+
+
+    fun generateLicFormPdf(context: Context, entryId: Int, dbHelper: DatabaseHelper) {
+        val (customerCursor, policyCursor) = dbHelper.getCustomerWithPolicies(entryId)
+
+        if (customerCursor == null || !customerCursor.moveToFirst()) {
+            Toast.makeText(context, "No customer found", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Fetch customer data
-        val cursor = databaseHelper.selectCustomerData(entryId)
-        if (!cursor.moveToFirst()) {
-            Toast.makeText(this, "Customer data not found!", Toast.LENGTH_SHORT).show()
-            return
-        }
+        // Fetch customer details
+        val fullName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFullName")) ?: ""
+        val fatherName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherName")) ?: ""
+        val address = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAddress")) ?: ""
+        val birthPlace = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBirthPlace")) ?: ""
+        val birthDate = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBirthDate")) ?: ""
+        val occupation = customerCursor.getString(customerCursor.getColumnIndexOrThrow("Occuption")) ?: ""
+        val income = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAnnualIncome")) ?: ""
+        val officeName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etCompanyName")) ?: ""
+        val mobile = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMobileNumber")) ?: ""
+        val ifsc = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etIfsc")) ?: ""
+        val micr = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMicr")) ?: ""
 
-        val fullName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_FULL_NAME))
-        val fatherName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_FATHER_NAME))
-        val motherName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_MOTHER_NAME))
-        val address = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_ADDRESS))
-        val mobileNumber = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_MOBILE_NUMBER))
-        val panCard = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_PAN_CARD))
-        val aadharNumber = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_ADHAR_CARD))
-        cursor.close()
-
-        // Define PDF file path in public Downloads/Sanvi_Associates
+        // Set up file for PDF output
         val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val folder = File(downloadsDir, "Sanvi_Associates")
-        if (!folder.exists() && !folder.mkdirs()) {
-            Toast.makeText(this, "Failed to create PDF folder!", Toast.LENGTH_SHORT).show()
-            return
+        val licFolder = File(downloadsDir, "Sanvi_Associates")
+        if (!licFolder.exists()) licFolder.mkdirs()
+        val filePath = File(licFolder, "${fullName}_LIC_Form.pdf")
+
+        val pdfWriter = PdfWriter(filePath)
+        val pdfDoc = PdfDocument(pdfWriter)
+        val document = Document(pdfDoc, PageSize.A4)
+
+//        try {
+//            // Add LIC logo
+//            val logoStream = context.resources.openRawResource(R.raw.lic_logo) // Add LIC logo to res/raw/ as lic_logo.png
+//            val logoImage = Image(ImageDataFactory.create(logoStream.readBytes()))
+//            logoImage.scaleToFit(100f, 50f)
+//            document.add(logoImage)
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//            Toast.makeText(context, "Failed to load LIC logo.", Toast.LENGTH_SHORT).show()
+//        }
+
+        // Add Header
+        document.add(Paragraph("Shree Jaychandrasinh Parmar").setFontSize(14f).setBold().setTextAlignment(TextAlignment.CENTER))
+        document.add(Paragraph("Insurance Agent - Code No. 1986").setFontSize(10f).setTextAlignment(TextAlignment.CENTER))
+        document.add(Paragraph("Mobile: 9824500867").setFontSize(10f).setTextAlignment(TextAlignment.CENTER))
+        document.add(Paragraph("\n"))
+
+        // Personal Details Section
+        val personalDetailsTable = Table(UnitValue.createPercentArray(floatArrayOf(1f, 2f, 1f, 2f))).useAllAvailableWidth()
+        personalDetailsTable.addCell(Cell().add(Paragraph("Son's Name").setFontSize(10f)))
+        personalDetailsTable.addCell(Cell().add(Paragraph(if (fullName.isNotBlank()) fullName else "N/A")))
+        personalDetailsTable.addCell(Cell().add(Paragraph("Father's Name").setFontSize(10f)))
+        personalDetailsTable.addCell(Cell().add(Paragraph(if (fatherName.isNotBlank()) fatherName else "N/A")))
+        personalDetailsTable.addCell(Cell().add(Paragraph("Address").setFontSize(10f)))
+        personalDetailsTable.addCell(Cell(1, 3).add(Paragraph(if (address.isNotBlank()) address else "N/A")))
+        personalDetailsTable.addCell(Cell().add(Paragraph("Place of Birth").setFontSize(10f)))
+        personalDetailsTable.addCell(Cell().add(Paragraph(if (birthPlace.isNotBlank()) birthPlace else "N/A")))
+        personalDetailsTable.addCell(Cell().add(Paragraph("Date of Birth").setFontSize(10f)))
+        personalDetailsTable.addCell(Cell().add(Paragraph(if (birthDate.isNotBlank()) birthDate else "N/A")))
+        personalDetailsTable.addCell(Cell().add(Paragraph("Mobile No.").setFontSize(10f)))
+        personalDetailsTable.addCell(Cell().add(Paragraph(if (mobile.isNotBlank()) mobile else "N/A")))
+        personalDetailsTable.addCell(Cell().add(Paragraph("Occupation").setFontSize(10f)))
+        personalDetailsTable.addCell(Cell().add(Paragraph(if (occupation.isNotBlank()) occupation else "N/A")))
+        personalDetailsTable.addCell(Cell().add(Paragraph("Annual Income").setFontSize(10f)))
+        personalDetailsTable.addCell(Cell().add(Paragraph(if (income.isNotBlank()) income else "N/A")))
+        personalDetailsTable.addCell(Cell().add(Paragraph("Office/Company Name").setFontSize(10f)))
+        personalDetailsTable.addCell(Cell(1, 3).add(Paragraph(if (officeName.isNotBlank()) officeName else "N/A")))
+        document.add(personalDetailsTable)
+        document.add(Paragraph("\n"))
+
+        // Policy Details Section
+        document.add(Paragraph("Details of Previous Policies (Self/Father/Husband)").setBold().setFontSize(12f))
+        val policyTable = Table(UnitValue.createPercentArray(floatArrayOf(1.5f, 1.5f, 1.5f, 1.5f, 1.5f, 1.5f))).useAllAvailableWidth()
+        listOf("Branch", "Policy Number", "Start Date", "Sum Assured", "Plan/Term", "Premium").forEach {
+            policyTable.addHeaderCell(Cell().add(Paragraph(it).setFontSize(10f).setBold()))
         }
 
-        val pdfFile = File(folder, "$fullName.pdf")
+        if (policyCursor != null && policyCursor.moveToFirst()) {
+            do {
+                val branchName = policyCursor.getString(policyCursor.getColumnIndexOrThrow("etBranchName")) ?: "N/A"
+                val policyNumber = policyCursor.getString(policyCursor.getColumnIndexOrThrow("etPolicyNumber")) ?: "N/A"
+                val startDate = policyCursor.getString(policyCursor.getColumnIndexOrThrow("etStartDate")) ?: "N/A"
+                val sumAssured = policyCursor.getString(policyCursor.getColumnIndexOrThrow("etSumAssured")) ?: "N/A"
+                val plan = policyCursor.getString(policyCursor.getColumnIndexOrThrow("etPlan")) ?: "N/A"
+                val policyPremium = policyCursor.getString(policyCursor.getColumnIndexOrThrow("etPolicyPremium")) ?: "N/A"
 
-        // Optional: show progress bar
-        homepageBinding.progressBar.visibility = View.VISIBLE
-
-        Thread {
-            try {
-                val pdfWriter = PdfWriter(pdfFile)
-                val pdfDocument = PdfDocument(pdfWriter)
-                val document = Document(pdfDocument)
-
-                // Add title
-                document.add(Paragraph("Sanvi Associates").setFontSize(18f).setBold().setMarginBottom(20f))
-
-                // Create and populate the table
-                val table = Table(UnitValue.createPercentArray(2)).setWidth(UnitValue.createPercentValue(100f))
-                table.addCell("Full Name:");      table.addCell(fullName ?: "")
-                table.addCell("Father's Name:");  table.addCell(fatherName ?: "")
-                table.addCell("Mother's Name:");  table.addCell(motherName ?: "")
-                table.addCell("Address:");        table.addCell(address ?: "")
-                table.addCell("Mobile Number:");  table.addCell(mobileNumber ?: "")
-                table.addCell("PAN Card:");       table.addCell(panCard ?: "")
-                table.addCell("Aadhaar Number:"); table.addCell(aadharNumber ?: "")
-                document.add(table)
-
-                document.close()
-
-                // Notify media scanner so file is visible
-                MediaScannerConnection.scanFile(this, arrayOf(pdfFile.absolutePath), null, null)
-
-                runOnUiThread {
-                    homepageBinding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, "PDF saved to ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
+                listOf(branchName, policyNumber, startDate, sumAssured, plan, policyPremium).forEach {
+                    policyTable.addCell(Cell().add(Paragraph(it).setFontSize(10f)))
                 }
-            } catch (e: Exception) {
-                Log.e("PDF_ERROR", "PDF creation failed", e)
-                runOnUiThread {
-                    homepageBinding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, "Failed to create PDF!", Toast.LENGTH_SHORT).show()
+            } while (policyCursor.moveToNext())
+        } else {
+            repeat(3) { // Add empty rows to maintain structure
+                repeat(6) {
+                    policyTable.addCell(Cell().add(Paragraph("N/A").setFontSize(10f)))
                 }
             }
-        }.start()
-    }*/
-
-    private fun generateCustomerPdf(entryId: Int) {
-        if (!PermissionUtil.hasNecessaryPermissions(this)) {
-            PermissionUtil.requestNecessaryPermissions(this)
-            return
         }
+        document.add(policyTable)
 
-        homepageBinding.progressBar.visibility = View.VISIBLE
+        // Footer Section
+        document.add(Paragraph("\n"))
+        val footerTable = Table(UnitValue.createPercentArray(floatArrayOf(1f, 3f))).useAllAvailableWidth()
+        footerTable.addCell(Cell().add(Paragraph("IFSC Code:").setFontSize(10f)))
+        footerTable.addCell(Cell().add(Paragraph(if (ifsc.isNotBlank()) ifsc else "N/A")))
+        footerTable.addCell(Cell().add(Paragraph("MICR Code:").setFontSize(10f)))
+        footerTable.addCell(Cell().add(Paragraph(if (micr.isNotBlank()) micr else "N/A")))
+        footerTable.addCell(Cell().add(Paragraph("Signature:").setFontSize(10f)))
+        footerTable.addCell(Cell().add(Paragraph(""))) // Signature placeholder
+        document.add(footerTable)
 
-        Thread {
-            try {
-                val cursor = databaseHelper.selectCustomerData(entryId)
-                if (!cursor.moveToFirst()) {
-                    runOnUiThread {
-                        homepageBinding.progressBar.visibility = View.GONE
-                        Toast.makeText(this, "Customer data not found!", Toast.LENGTH_SHORT).show()
-                    }
-                    return@Thread
-                }
+        // Close the document
+        document.close()
+        customerCursor.close()
+        policyCursor?.close()
 
-                val fullName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_FULL_NAME))
-                val fatherName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_FATHER_NAME))
-                val motherName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_MOTHER_NAME))
-                val address = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_ADDRESS))
-                val mobileNumber = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_MOBILE_NUMBER))
-                val panCard = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_PAN_CARD))
-                val aadharNumber = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.CUSTOMER_COLUMN_ADHAR_CARD))
-                cursor.close()
-
-                val baseDir = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
-                if (baseDir == null) {
-                    runOnUiThread {
-                        homepageBinding.progressBar.visibility = View.GONE
-                        Toast.makeText(this, "Storage not available!", Toast.LENGTH_SHORT).show()
-                    }
-                    return@Thread
-                }
-
-                val folder = File(baseDir, "Sanvi_Associates")
-                if (!folder.exists() && !folder.mkdirs()) {
-                    runOnUiThread {
-                        homepageBinding.progressBar.visibility = View.GONE
-                        Toast.makeText(this, "Failed to create folder!", Toast.LENGTH_SHORT).show()
-                    }
-                    return@Thread
-                }
-
-                val pdfFile = File(folder, "$fullName.pdf")
-                val pdfWriter = PdfWriter(pdfFile)
-                val pdfDocument = PdfDocument(pdfWriter)
-                val document = Document(pdfDocument)
-
-                // Header
-                document.add(Paragraph("Sanvi Associates").setBold().setFontSize(20f).setMarginBottom(15f).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.CENTER))
-
-                // Personal Details Section Header
-                document.add(Paragraph("Personal Details").setBold().setFontSize(14f).setMarginTop(10f).setUnderline())
-
-                // Create a 2-column table for details
-                val table = Table(UnitValue.createPercentArray(floatArrayOf(30f, 70f))).setWidth(UnitValue.createPercentValue(100f))
-                table.addCell("Full Name:");     table.addCell(fullName)
-                table.addCell("Father's Name:"); table.addCell(fatherName)
-                table.addCell("Mother's Name:"); table.addCell(motherName)
-                table.addCell("Mobile Number:"); table.addCell(mobileNumber)
-                table.addCell("Address:");       table.addCell(address)
-                table.addCell("PAN Card:");      table.addCell(panCard)
-                table.addCell("Aadhaar Number:");table.addCell(aadharNumber)
-
-                document.add(table)
-                document.close()
-
-                runOnUiThread {
-                    homepageBinding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, "PDF saved to ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
-                }
-
-            } catch (e: Exception) {
-                Log.e("PDF_ERROR", "PDF creation failed", e)
-                runOnUiThread {
-                    homepageBinding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, "Failed to generate PDF!", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }.start()
+        Toast.makeText(context, "LIC form PDF saved at: ${filePath.absolutePath}", Toast.LENGTH_LONG).show()
     }
-
-
-
-
 
     private fun deleteCustomer(entryData: EntryData) {
         val entryId = entryData.entryId

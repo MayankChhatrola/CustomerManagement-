@@ -220,4 +220,18 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         cursor.close()
         return lastId
     }
+
+    fun getCustomerWithPolicies(entryId: Int): Pair<Cursor?, Cursor?> {
+        val db = readableDatabase
+        val customerCursor = db.rawQuery(
+            "SELECT * FROM $CUSTOMER_TABLE WHERE $CUSTOMER_COLUMN_ENTRY_ID = ?",
+            arrayOf(entryId.toString())
+        )
+        val policyCursor = db.rawQuery(
+            "SELECT * FROM $POLICY_TABLE WHERE $POLICY_COLUMN_CUSTOMER_ID = ?",
+            arrayOf(entryId.toString())
+        )
+        return Pair(customerCursor, policyCursor)
+    }
+
 }

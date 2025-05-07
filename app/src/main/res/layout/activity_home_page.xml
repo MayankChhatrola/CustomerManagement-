@@ -39,6 +39,15 @@
             android:textSize="@dimen/_20sdp"
             android:textStyle="bold" />
 
+        <ImageView
+            android:id="@+id/ivConverter"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:background="@drawable/converter"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/_16sdp"/>
+
     </RelativeLayout>
 
     <com.google.android.material.card.MaterialCardView

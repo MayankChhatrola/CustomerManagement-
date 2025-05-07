@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.sanviassociates.databinding.ActivityUpdateCustomerBinding
 
 class UpdateCustomer : AppCompatActivity() {
@@ -21,6 +22,7 @@ class UpdateCustomer : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         binding = ActivityUpdateCustomerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
