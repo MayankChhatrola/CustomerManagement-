@@ -208,11 +208,7 @@ class HomePage : AppCompatActivity() {
 //            Toast.makeText(context, "Failed to load LIC logo.", Toast.LENGTH_SHORT).show()
 //        }
 
-        // Add Header
-        document.add(Paragraph("Shree Jaychandrasinh Parmar").setFontSize(14f).setBold().setTextAlignment(TextAlignment.CENTER))
-        document.add(Paragraph("Insurance Agent - Code No. 1986").setFontSize(10f).setTextAlignment(TextAlignment.CENTER))
-        document.add(Paragraph("Mobile: 9824500867").setFontSize(10f).setTextAlignment(TextAlignment.CENTER))
-        document.add(Paragraph("\n"))
+
 
         // Personal Details Section
         val personalDetailsTable = Table(UnitValue.createPercentArray(floatArrayOf(1f, 2f, 1f, 2f))).useAllAvailableWidth()
