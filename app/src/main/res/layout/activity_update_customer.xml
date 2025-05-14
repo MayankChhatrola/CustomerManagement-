@@ -269,6 +269,44 @@
                                     android:maxLength="6" />
                             </com.google.android.material.card.MaterialCardView>
 
+                            <!-- Nominne Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etNominneName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Pincode"
+                                    android:padding="8dp"
+                                    android:inputType="textPersonName"
+                                    android:maxLength="6" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Nommine Date -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <EditText
+                                    android:id="@+id/etNommineeDate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:background="@drawable/edittext_bg"
+                                    android:hint="Nomminee Date of Birth"
+                                    android:focusable="false"
+                                    android:cursorVisible="false"
+                                    android:inputType="none"
+                                    android:padding="8dp"
+                                    android:textSize="@dimen/_14sdp" />
+                            </com.google.android.material.card.MaterialCardView>
+
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -911,22 +949,6 @@
                                     android:inputType="textMultiLine" />
                             </com.google.android.material.card.MaterialCardView>
 
-                            <!-- Last Pregnancy Date -->
-                            <com.google.android.material.card.MaterialCardView
-                                style="@style/CustomCardView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/_12sdp">
-
-                                <EditText
-                                    android:id="@+id/etPregencyDate"
-                                    style="@style/CustomEditText"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:padding="8dp"
-                                    android:hint="Last Pregnancy Date"
-                                    android:inputType="date" />
-                            </com.google.android.material.card.MaterialCardView>
 
                         </LinearLayout>
                     </LinearLayout>
