@@ -167,161 +167,155 @@ class HomePage : AppCompatActivity() {
     }
 
     //Updated Version of PDF
-   /* fun generateCustomerPdf(context: Context, entryId: Int, dbHelper: DatabaseHelper) {
-        val (customerCursor, policyCursor) = dbHelper.getCustomerWithPolicies(entryId)
 
-        if (customerCursor == null || !customerCursor.moveToFirst()) {
-            Toast.makeText(context, "No customer found", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // Fetch customer details
-        val fullName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFullName")) ?: ""
-        val fatherName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherName")) ?: ""
-        val motherName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherName")) ?: ""
-        val address = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAddress")) ?: ""
-        val birthPlace = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBirthPlace")) ?: ""
-        val birthDate = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBirthDate")) ?: ""
-        val occupation = customerCursor.getString(customerCursor.getColumnIndexOrThrow("Occuption")) ?: ""
-        val annualIncome = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAnnualIncome")) ?: ""
-        val mobileNumber = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMobileNumber")) ?: ""
-        val emailId = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etEmailId")) ?: ""
-        val bankName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBanmeName")) ?: ""
-        val accountNumber = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAccountNumber")) ?: ""
-        val ifsc = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etIfsc")) ?: ""
-        val micr = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMicr")) ?: ""
-
-        // Fetch family details
-        val fatherAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherAge")) ?: ""
-        val fatherYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherYear")) ?: ""
-        val fatherCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherCondition")) ?: ""
-
-        val motherAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherAge")) ?: ""
-        val motherYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherYear")) ?: ""
-        val motherCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherCondition")) ?: ""
-
-        val brotherAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBrotherAge")) ?: ""
-        val brotherYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBrotherYear")) ?: ""
-        val brotherCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("eBrotherCondition")) ?: ""
-
-        val sisterAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etSisterAge")) ?: ""
-        val sisterYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etSisterYear")) ?: ""
-        val sisterCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etSisterCondition")) ?: ""
-
-        val husbandAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etHusbandAge")) ?: ""
-        val husbandYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etHusbandYear")) ?: ""
-        val husbandCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etHusbandCondition")) ?: ""
-
-        val childrenAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etChildrenAge")) ?: ""
-        val childrenYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etChildrenYear")) ?: ""
-        val childrenCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etChildrenCondition")) ?: ""
-
-        // Create the directory and file
-        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val pdfFolder = File(downloadsDir, "Sanvi_Associates")
-        if (!pdfFolder.exists()) pdfFolder.mkdirs()
-        val pdfFile = File(pdfFolder, "${fullName}_Details.pdf")
-
-        val pdfWriter = PdfWriter(pdfFile)
-        val pdfDocument = PdfDocument(pdfWriter)
-        val document = Document(pdfDocument, PageSize.A4)
-
-        // Add Title
-        document.add(Paragraph("Sanvi Associates").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(16f))
-        document.add(Paragraph("Customer Details").setTextAlignment(TextAlignment.CENTER).setFontSize(14f))
-        document.add(Paragraph("\n"))
-
-        // Add Personal Details Section
-        val personalDetailsTable = Table(UnitValue.createPercentArray(floatArrayOf(2f, 4f, 2f, 4f))).useAllAvailableWidth()
-        personalDetailsTable.addCell(Cell(1, 4).add(Paragraph("Personal Details").setBold().setTextAlignment(TextAlignment.CENTER)))
-        personalDetailsTable.addCell(Cell().add(Paragraph("Full Name")))
-        personalDetailsTable.addCell(Cell().add(Paragraph(fullName)))
-        personalDetailsTable.addCell(Cell().add(Paragraph("Father's Name")))
-        personalDetailsTable.addCell(Cell().add(Paragraph(fatherName)))
-        personalDetailsTable.addCell(Cell().add(Paragraph("Mother's Name")))
-        personalDetailsTable.addCell(Cell().add(Paragraph(motherName)))
-        personalDetailsTable.addCell(Cell().add(Paragraph("Address")))
-        personalDetailsTable.addCell(Cell(1, 3).add(Paragraph(address)))
-        personalDetailsTable.addCell(Cell().add(Paragraph("Place of Birth")))
-        personalDetailsTable.addCell(Cell().add(Paragraph(birthPlace)))
-        personalDetailsTable.addCell(Cell().add(Paragraph("Date of Birth")))
-        personalDetailsTable.addCell(Cell().add(Paragraph(birthDate)))
-        personalDetailsTable.addCell(Cell().add(Paragraph("Mobile Number")))
-        personalDetailsTable.addCell(Cell().add(Paragraph(mobileNumber)))
-        personalDetailsTable.addCell(Cell().add(Paragraph("Email ID")))
-        personalDetailsTable.addCell(Cell().add(Paragraph(emailId)))
-        personalDetailsTable.addCell(Cell().add(Paragraph("Occupation")))
-        personalDetailsTable.addCell(Cell().add(Paragraph(occupation)))
-        personalDetailsTable.addCell(Cell().add(Paragraph("Annual Income")))
-        personalDetailsTable.addCell(Cell().add(Paragraph(annualIncome)))
-        document.add(personalDetailsTable)
-        document.add(Paragraph("\n"))
-
-        // Add Family Details Section
-        val familyTable = Table(UnitValue.createPercentArray(floatArrayOf(2f, 2f, 2f, 2f))).useAllAvailableWidth()
-        familyTable.addCell(Cell(1, 4).add(Paragraph("Family Details").setBold().setTextAlignment(TextAlignment.CENTER)))
-
-        // Add headers
-        familyTable.addCell(Cell().add(Paragraph("Relation").setBold().setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph("Age").setBold().setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph("Year").setBold().setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph("Condition").setBold().setTextAlignment(TextAlignment.CENTER)))
-
-        // Add rows for family members
-        familyTable.addCell(Cell().add(Paragraph("Father").setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(fatherAge).setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(fatherYear).setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(fatherCondition).setTextAlignment(TextAlignment.CENTER)))
-
-        familyTable.addCell(Cell().add(Paragraph("Mother").setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(motherAge).setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(motherYear).setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(motherCondition).setTextAlignment(TextAlignment.CENTER)))
-
-        familyTable.addCell(Cell().add(Paragraph("Brother").setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(brotherAge).setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(brotherYear).setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(brotherCondition).setTextAlignment(TextAlignment.CENTER)))
-
-        familyTable.addCell(Cell().add(Paragraph("Sister").setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(sisterAge).setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(sisterYear).setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(sisterCondition).setTextAlignment(TextAlignment.CENTER)))
-
-        familyTable.addCell(Cell().add(Paragraph("Husband/Wife").setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(husbandAge).setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(husbandYear).setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(husbandCondition).setTextAlignment(TextAlignment.CENTER)))
-
-        familyTable.addCell(Cell().add(Paragraph("Children").setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(childrenAge).setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(childrenYear).setTextAlignment(TextAlignment.CENTER)))
-        familyTable.addCell(Cell().add(Paragraph(childrenCondition).setTextAlignment(TextAlignment.CENTER)))
-
-        document.add(familyTable)
-        document.add(Paragraph("\n"))
-
-        // Add Bank Details Section
-        val bankDetailsTable = Table(UnitValue.createPercentArray(floatArrayOf(2f, 4f, 2f, 4f))).useAllAvailableWidth()
-        bankDetailsTable.addCell(Cell(1, 4).add(Paragraph("Bank Details").setBold().setTextAlignment(TextAlignment.CENTER)))
-        bankDetailsTable.addCell(Cell().add(Paragraph("Bank Name")))
-        bankDetailsTable.addCell(Cell().add(Paragraph(bankName)))
-        bankDetailsTable.addCell(Cell().add(Paragraph("Account Number")))
-        bankDetailsTable.addCell(Cell().add(Paragraph(accountNumber)))
-        bankDetailsTable.addCell(Cell().add(Paragraph("IFSC Code")))
-        bankDetailsTable.addCell(Cell().add(Paragraph(ifsc)))
-        bankDetailsTable.addCell(Cell().add(Paragraph("MICR Code")))
-        bankDetailsTable.addCell(Cell().add(Paragraph(micr)))
-        document.add(bankDetailsTable)
-
-        // Finalize and close the document
-        document.close()
-        customerCursor.close()
-        policyCursor?.close()
-
-        Toast.makeText(context, "PDF saved to: ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
-    }
-*/
+//    fun generateCustomerPdf(context: Context, entryId: Int, dbHelper: DatabaseHelper) {
+//        val (customerCursor, policyCursor) = dbHelper.getCustomerWithPolicies(entryId)
+//
+//        if (customerCursor == null || !customerCursor.moveToFirst()) {
+//            Toast.makeText(context, "No customer found", Toast.LENGTH_SHORT).show()
+//            return
+//        }
+//
+//        // Extract data
+//        val fullName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFullName")) ?: ""
+//        val fatherName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherName")) ?: ""
+//        val motherName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherName")) ?: ""
+//        val address = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAddress")) ?: ""
+//        val birthPlace = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBirthPlace")) ?: ""
+//        val birthDate = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBirthDate")) ?: ""
+//        val occupation = customerCursor.getString(customerCursor.getColumnIndexOrThrow("Occuption")) ?: ""
+//        val annualIncome = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAnnualIncome")) ?: ""
+//        val mobileNumber = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMobileNumber")) ?: ""
+//        val emailId = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etEmailId")) ?: ""
+//        val bankName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBanmeName")) ?: ""
+//        val accountNumber = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAccountNumber")) ?: ""
+//        val ifsc = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etIfsc")) ?: ""
+//        val micr = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMicr")) ?: ""
+//
+//        val fatherAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherAge")) ?: ""
+//        val fatherYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherYear")) ?: ""
+//        val fatherCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherCondition")) ?: ""
+//
+//        val motherAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherAge")) ?: ""
+//        val motherYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherYear")) ?: ""
+//        val motherCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherCondition")) ?: ""
+//
+//        val brotherAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBrotherAge")) ?: ""
+//        val brotherYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBrotherYear")) ?: ""
+//        val brotherCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("eBrotherCondition")) ?: ""
+//
+//        val sisterAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etSisterAge")) ?: ""
+//        val sisterYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etSisterYear")) ?: ""
+//        val sisterCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etSisterCondition")) ?: ""
+//
+//        val husbandAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etHusbandAge")) ?: ""
+//        val husbandYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etHusbandYear")) ?: ""
+//        val husbandCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etHusbandCondition")) ?: ""
+//
+//        val childrenAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etChildrenAge")) ?: ""
+//        val childrenYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etChildrenYear")) ?: ""
+//        val childrenCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etChildrenCondition")) ?: ""
+//
+//        // Create file
+//        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+//        val pdfFolder = File(downloadsDir, "Sanvi_Associates")
+//        if (!pdfFolder.exists()) pdfFolder.mkdirs()
+//        val pdfFile = File(pdfFolder, "${fullName}_Details.pdf")
+//
+//        // iText setup
+//        val pdfWriter = PdfWriter(pdfFile)
+//        val pdfDocument = PdfDocument(pdfWriter)
+//        val document = Document(pdfDocument, PageSize.A4)
+//        document.setMargins(20f, 20f, 20f, 20f)
+//
+//        val blue = DeviceRgb(63, 81, 181)
+//        val gray = DeviceRgb(230, 230, 250)
+//
+//        // Title
+//        document.add(
+//            Paragraph("Sanvi Associates")
+//                .setTextAlignment(TextAlignment.CENTER)
+//                .setFontSize(24f)
+//                .setBold()
+//                .setFontColor(blue)
+//                .setMarginBottom(10f)
+//        )
+//        document.add(
+//            Paragraph("Customer Details")
+//                .setTextAlignment(TextAlignment.CENTER)
+//                .setFontSize(16f)
+//                .setBold()
+//                .setMarginBottom(20f)
+//        )
+//
+//        fun sectionTitle(title: String): Paragraph {
+//            return Paragraph(title)
+//                .setBackgroundColor(blue)
+//                .setFontColor(ColorConstants.WHITE)
+//                .setBold()
+//                .setPadding(5f)
+//                .setTextAlignment(TextAlignment.CENTER)
+//                .setMarginBottom(5f)
+//        }
+//
+//        fun addDetailRow(table: Table, label: String, value: String) {
+//            table.addCell(Cell().add(Paragraph(label).setBold()))
+//            table.addCell(Cell().add(Paragraph(value)))
+//        }
+//
+//        // Personal Details
+//        document.add(sectionTitle("Personal Details"))
+//        val personalTable = Table(UnitValue.createPercentArray(floatArrayOf(2f, 4f, 2f, 4f))).useAllAvailableWidth()
+//        addDetailRow(personalTable, "Full Name", fullName)
+//        addDetailRow(personalTable, "Father's Name", fatherName)
+//        addDetailRow(personalTable, "Mother's Name", motherName)
+//        addDetailRow(personalTable, "Address", address)
+//        addDetailRow(personalTable, "Place of Birth", birthPlace)
+//        addDetailRow(personalTable, "Date of Birth", birthDate)
+//        addDetailRow(personalTable, "Mobile Number", mobileNumber)
+//        addDetailRow(personalTable, "Email ID", emailId)
+//        addDetailRow(personalTable, "Occupation", occupation)
+//        addDetailRow(personalTable, "Annual Income", annualIncome)
+//        document.add(personalTable)
+//
+//        // Family Details
+//        document.add(sectionTitle("Family Details"))
+//        val familyTable = Table(UnitValue.createPercentArray(floatArrayOf(3f, 2f, 2f, 3f))).useAllAvailableWidth()
+//        val headers = listOf("Relation", "Age", "Year", "Condition")
+//        headers.forEach {
+//            familyTable.addCell(Cell().add(Paragraph(it).setBold()).setBackgroundColor(gray).setTextAlignment(TextAlignment.CENTER))
+//        }
+//
+//        fun addFamilyRow(rel: String, age: String, year: String, cond: String) {
+//            familyTable.addCell(Cell().add(Paragraph(rel)))
+//            familyTable.addCell(Cell().add(Paragraph(age)).setTextAlignment(TextAlignment.CENTER))
+//            familyTable.addCell(Cell().add(Paragraph(year)).setTextAlignment(TextAlignment.CENTER))
+//            familyTable.addCell(Cell().add(Paragraph(cond)))
+//        }
+//
+//        addFamilyRow("Father", fatherAge, fatherYear, fatherCondition)
+//        addFamilyRow("Mother", motherAge, motherYear, motherCondition)
+//        addFamilyRow("Brother", brotherAge, brotherYear, brotherCondition)
+//        addFamilyRow("Sister", sisterAge, sisterYear, sisterCondition)
+//        addFamilyRow("Husband/Wife", husbandAge, husbandYear, husbandCondition)
+//        addFamilyRow("Children", childrenAge, childrenYear, childrenCondition)
+//        document.add(familyTable)
+//
+//        // Bank Details
+//        document.add(sectionTitle("Bank Details"))
+//        val bankTable = Table(UnitValue.createPercentArray(floatArrayOf(2f, 4f, 2f, 4f))).useAllAvailableWidth()
+//        addDetailRow(bankTable, "Bank Name", bankName)
+//        addDetailRow(bankTable, "Account Number", accountNumber)
+//        addDetailRow(bankTable, "IFSC Code", ifsc)
+//        addDetailRow(bankTable, "MICR Code", micr)
+//        document.add(bankTable)
+//
+//        document.close()
+//        customerCursor.close()
+//        policyCursor?.close()
+//
+//        Toast.makeText(context, "PDF saved to: ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
+//    }
 
     fun generateCustomerPdf(context: Context, entryId: Int, dbHelper: DatabaseHelper) {
         val (customerCursor, policyCursor) = dbHelper.getCustomerWithPolicies(entryId)
@@ -331,139 +325,127 @@ class HomePage : AppCompatActivity() {
             return
         }
 
-        // Extract data
-        val fullName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFullName")) ?: ""
-        val fatherName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherName")) ?: ""
-        val motherName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherName")) ?: ""
-        val address = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAddress")) ?: ""
-        val birthPlace = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBirthPlace")) ?: ""
-        val birthDate = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBirthDate")) ?: ""
-        val occupation = customerCursor.getString(customerCursor.getColumnIndexOrThrow("Occuption")) ?: ""
-        val annualIncome = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAnnualIncome")) ?: ""
-        val mobileNumber = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMobileNumber")) ?: ""
-        val emailId = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etEmailId")) ?: ""
-        val bankName = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBanmeName")) ?: ""
-        val accountNumber = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAccountNumber")) ?: ""
-        val ifsc = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etIfsc")) ?: ""
-        val micr = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMicr")) ?: ""
+        // Extract all fields with fallback for null values
+        val fields = mapOf(
+            "etFullName" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFullName")) ?: "-"),
+            "etFatherName" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherName")) ?: "-"),
+            "etMotherName" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherName")) ?: "-"),
+            "etAddress" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAddress")) ?: "-"),
+            "etPincode" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etPincode")) ?: "-"),
+            "etBirthPlace" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBirthPlace")) ?: "-"),
+            "etBirthDate" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBirthDate")) ?: "-"),
+            "etNominneName" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etNominneName")) ?: "-"),
+            "etNommineeDate" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etNommineeDate")) ?: "-"),
+            "etMobileNumber" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMobileNumber")) ?: "-"),
+            "etEmailId" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etEmailId")) ?: "-"),
+            "etPancard" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etPancard")) ?: "-"),
+            "etAdharNumber" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAdharNumber")) ?: "-"),
+            "etHeight" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etHeight")) ?: "-"),
+            "etWeight" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etWeight")) ?: "-"),
+            "etWaist" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etWaist")) ?: "-"),
+            "etChest" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etChest")) ?: "-"),
+            "etIlleness" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etIlleness")) ?: "-"),
+            "etAccountHolderName" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAccountHolderName")) ?: "-"),
+            "etAccountNumber" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAccountNumber")) ?: "-"),
+            "etBanmeName" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBanmeName")) ?: "-"),
+            "etMicr" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMicr")) ?: "-"),
+            "etIfsc" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etIfsc")) ?: "-"),
+            "etEducation" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etEducation")) ?: "-"),
+            "Occuption" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("Occuption")) ?: "-"),
+            "etAnnualIncome" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etAnnualIncome")) ?: "-"),
+            "etCompanyName" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etCompanyName")) ?: "-"),
+            "etsinceWhen" to (customerCursor.getString(customerCursor.getColumnIndexOrThrow("etsinceWhen")) ?: "-")
+        )
 
-        val fatherAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherAge")) ?: ""
-        val fatherYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherYear")) ?: ""
-        val fatherCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etFatherCondition")) ?: ""
-
-        val motherAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherAge")) ?: ""
-        val motherYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherYear")) ?: ""
-        val motherCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etMotherCondition")) ?: ""
-
-        val brotherAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBrotherAge")) ?: ""
-        val brotherYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etBrotherYear")) ?: ""
-        val brotherCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("eBrotherCondition")) ?: ""
-
-        val sisterAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etSisterAge")) ?: ""
-        val sisterYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etSisterYear")) ?: ""
-        val sisterCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etSisterCondition")) ?: ""
-
-        val husbandAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etHusbandAge")) ?: ""
-        val husbandYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etHusbandYear")) ?: ""
-        val husbandCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etHusbandCondition")) ?: ""
-
-        val childrenAge = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etChildrenAge")) ?: ""
-        val childrenYear = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etChildrenYear")) ?: ""
-        val childrenCondition = customerCursor.getString(customerCursor.getColumnIndexOrThrow("etChildrenCondition")) ?: ""
-
-        // Create file
         val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
         val pdfFolder = File(downloadsDir, "Sanvi_Associates")
         if (!pdfFolder.exists()) pdfFolder.mkdirs()
-        val pdfFile = File(pdfFolder, "${fullName}_Details.pdf")
+        val pdfFile = File(pdfFolder, "${fields["etFullName"]}_Details.pdf")
 
-        // iText setup
         val pdfWriter = PdfWriter(pdfFile)
         val pdfDocument = PdfDocument(pdfWriter)
         val document = Document(pdfDocument, PageSize.A4)
-        document.setMargins(20f, 20f, 20f, 20f)
 
-        val blue = DeviceRgb(63, 81, 181)
-        val gray = DeviceRgb(230, 230, 250)
+        // Define Colors
+        val headerColor = DeviceRgb(245, 145, 78) // colorPrimary
+        val white = DeviceRgb(255, 255, 255) // colorOnPrimary
+
+        fun addSectionTitle(title: String) {
+            val cell = Cell(1, 4).add(Paragraph(title).setBold().setFontSize(14f).setFontColor(white))
+                .setBackgroundColor(headerColor)
+                .setTextAlignment(TextAlignment.CENTER)
+            val table = Table(UnitValue.createPercentArray(4)).useAllAvailableWidth()
+            table.addCell(cell)
+            document.add(table)
+        }
 
         // Title
-        document.add(
-            Paragraph("Sanvi Associates")
-                .setTextAlignment(TextAlignment.CENTER)
-                .setFontSize(24f)
-                .setBold()
-                .setFontColor(blue)
-                .setMarginBottom(10f)
-        )
-        document.add(
-            Paragraph("Customer Details")
-                .setTextAlignment(TextAlignment.CENTER)
-                .setFontSize(16f)
-                .setBold()
-                .setMarginBottom(20f)
-        )
+        document.add(Paragraph("Sanvi Associates").setTextAlignment(TextAlignment.CENTER).setBold().setFontSize(18f))
+        document.add(Paragraph("Customer Details").setTextAlignment(TextAlignment.CENTER).setFontSize(14f))
+        document.add(Paragraph("\n"))
 
-        fun sectionTitle(title: String): Paragraph {
-            return Paragraph(title)
-                .setBackgroundColor(blue)
-                .setFontColor(ColorConstants.WHITE)
-                .setBold()
-                .setPadding(5f)
-                .setTextAlignment(TextAlignment.CENTER)
-                .setMarginBottom(5f)
-        }
-
-        fun addDetailRow(table: Table, label: String, value: String) {
-            table.addCell(Cell().add(Paragraph(label).setBold()))
-            table.addCell(Cell().add(Paragraph(value)))
-        }
-
-        // Personal Details
-        document.add(sectionTitle("Personal Details"))
+        // Personal Info
+        addSectionTitle("Personal Information")
         val personalTable = Table(UnitValue.createPercentArray(floatArrayOf(2f, 4f, 2f, 4f))).useAllAvailableWidth()
-        addDetailRow(personalTable, "Full Name", fullName)
-        addDetailRow(personalTable, "Father's Name", fatherName)
-        addDetailRow(personalTable, "Mother's Name", motherName)
-        addDetailRow(personalTable, "Address", address)
-        addDetailRow(personalTable, "Place of Birth", birthPlace)
-        addDetailRow(personalTable, "Date of Birth", birthDate)
-        addDetailRow(personalTable, "Mobile Number", mobileNumber)
-        addDetailRow(personalTable, "Email ID", emailId)
-        addDetailRow(personalTable, "Occupation", occupation)
-        addDetailRow(personalTable, "Annual Income", annualIncome)
+        fun addRow(key1: String, key2: String) {
+            personalTable.addCell(Cell().add(Paragraph(key1.replace("et", "").capitalize())))
+            personalTable.addCell(Cell().add(Paragraph(fields[key1] ?: "-")))
+            personalTable.addCell(Cell().add(Paragraph(key2.replace("et", "").capitalize())))
+            personalTable.addCell(Cell().add(Paragraph(fields[key2] ?: "-")))
+        }
+        addRow("etFullName", "etFatherName")
+        addRow("etMotherName", "etBirthPlace")
+        addRow("etBirthDate", "etMobileNumber")
+        addRow("etEmailId", "etPincode")
+        addRow("etAddress", "etPancard")
+        addRow("etAdharNumber", "etEducation")
+        addRow("Occuption", "etAnnualIncome")
+        addRow("etCompanyName", "etsinceWhen")
         document.add(personalTable)
+        document.add(Paragraph("\n"))
 
-        // Family Details
-        document.add(sectionTitle("Family Details"))
-        val familyTable = Table(UnitValue.createPercentArray(floatArrayOf(3f, 2f, 2f, 3f))).useAllAvailableWidth()
-        val headers = listOf("Relation", "Age", "Year", "Condition")
-        headers.forEach {
-            familyTable.addCell(Cell().add(Paragraph(it).setBold()).setBackgroundColor(gray).setTextAlignment(TextAlignment.CENTER))
-        }
-
-        fun addFamilyRow(rel: String, age: String, year: String, cond: String) {
-            familyTable.addCell(Cell().add(Paragraph(rel)))
-            familyTable.addCell(Cell().add(Paragraph(age)).setTextAlignment(TextAlignment.CENTER))
-            familyTable.addCell(Cell().add(Paragraph(year)).setTextAlignment(TextAlignment.CENTER))
-            familyTable.addCell(Cell().add(Paragraph(cond)))
-        }
-
-        addFamilyRow("Father", fatherAge, fatherYear, fatherCondition)
-        addFamilyRow("Mother", motherAge, motherYear, motherCondition)
-        addFamilyRow("Brother", brotherAge, brotherYear, brotherCondition)
-        addFamilyRow("Sister", sisterAge, sisterYear, sisterCondition)
-        addFamilyRow("Husband/Wife", husbandAge, husbandYear, husbandCondition)
-        addFamilyRow("Children", childrenAge, childrenYear, childrenCondition)
-        document.add(familyTable)
-
-        // Bank Details
-        document.add(sectionTitle("Bank Details"))
+        // Bank Info
+        addSectionTitle("Bank Details")
         val bankTable = Table(UnitValue.createPercentArray(floatArrayOf(2f, 4f, 2f, 4f))).useAllAvailableWidth()
-        addDetailRow(bankTable, "Bank Name", bankName)
-        addDetailRow(bankTable, "Account Number", accountNumber)
-        addDetailRow(bankTable, "IFSC Code", ifsc)
-        addDetailRow(bankTable, "MICR Code", micr)
+        addRow("etAccountHolderName", "etAccountNumber")
+        addRow("etBanmeName", "etIfsc")
+        addRow("etMicr", "-")
         document.add(bankTable)
+        document.add(Paragraph("\n"))
+
+        // Medical Info
+        addSectionTitle("Medical Details")
+        val medicalTable = Table(UnitValue.createPercentArray(floatArrayOf(2f, 4f, 2f, 4f))).useAllAvailableWidth()
+        addRow("etHeight", "etWeight")
+        addRow("etWaist", "etChest")
+        addRow("etIlleness", "-")
+        document.add(medicalTable)
+        document.add(Paragraph("\n"))
+
+        // Previous Policy Details
+        addSectionTitle("Previous Policy Details")
+        if (policyCursor != null && policyCursor.moveToFirst()) {
+            val policyTable = Table(UnitValue.createPercentArray(floatArrayOf(2f, 3f, 2f, 2f, 2f, 2f))).useAllAvailableWidth()
+            policyTable.addCell(Cell().add(Paragraph("Policy #").setBold()))
+            policyTable.addCell(Cell().add(Paragraph("Branch Name").setBold()))
+            policyTable.addCell(Cell().add(Paragraph("Start Date").setBold()))
+            policyTable.addCell(Cell().add(Paragraph("Sum Assured").setBold()))
+            policyTable.addCell(Cell().add(Paragraph("Plan").setBold()))
+            policyTable.addCell(Cell().add(Paragraph("Premium").setBold()))
+
+            do {
+                policyTable.addCell(Cell().add(Paragraph(policyCursor.getString(policyCursor.getColumnIndexOrThrow("etPolicyNumber")) ?: "-")))
+                policyTable.addCell(Cell().add(Paragraph(policyCursor.getString(policyCursor.getColumnIndexOrThrow("etBranchName")) ?: "-")))
+                policyTable.addCell(Cell().add(Paragraph(policyCursor.getString(policyCursor.getColumnIndexOrThrow("etStartDate")) ?: "-")))
+                policyTable.addCell(Cell().add(Paragraph(policyCursor.getString(policyCursor.getColumnIndexOrThrow("etSumAssured")) ?: "-")))
+                policyTable.addCell(Cell().add(Paragraph(policyCursor.getString(policyCursor.getColumnIndexOrThrow("etPlan")) ?: "-")))
+                policyTable.addCell(Cell().add(Paragraph(policyCursor.getString(policyCursor.getColumnIndexOrThrow("etPolicyPremium")) ?: "-")))
+            } while (policyCursor.moveToNext())
+
+            document.add(policyTable)
+        } else {
+            document.add(Paragraph("No Previous Policy Details Available").setItalic())
+        }
 
         document.close()
         customerCursor.close()
@@ -471,6 +453,7 @@ class HomePage : AppCompatActivity() {
 
         Toast.makeText(context, "PDF saved to: ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
     }
+
 
     private fun deleteCustomer(entryData: EntryData) {
         val entryId = entryData.entryId
