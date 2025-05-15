@@ -364,7 +364,8 @@ class HomePage : AppCompatActivity() {
         familyCursor?.close()
         policyCursor?.close()
 
-        Toast.makeText(context, "PDF saved to: ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
+      //  Toast.makeText(context, "PDF saved to: ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "PDF saved Successfully.", Toast.LENGTH_LONG).show()
     }
 
 
