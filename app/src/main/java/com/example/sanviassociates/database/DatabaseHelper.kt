@@ -23,12 +23,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         const val CUSTOMER_COLUMN_BIRTH_DATE = "etBirthDate"
         const val CUSTOMER_COLUMN_ADDRESS = "etAddress"
         const val CUSTOMER_COLUMN_PINCODE = "etPincode"
-        const val CUSTOMER_COLUMN_NOMINEE_NAME = "etNominneName" // New Field
-        const val CUSTOMER_COLUMN_NOMINEE_DOB = "etNommineeDate" // New Field
+        const val CUSTOMER_COLUMN_NOMINEE_NAME = "etNomineeName" // Corrected Field Name
+        const val CUSTOMER_COLUMN_NOMINEE_DOB = "etNomineeDate" // Corrected Field Name
         const val CUSTOMER_COLUMN_MOBILE_NUMBER = "etMobileNumber"
         const val CUSTOMER_COLUMN_EMAIL_ID = "etEmailId"
         const val CUSTOMER_COLUMN_PAN_CARD = "etPancard"
-        const val CUSTOMER_COLUMN_ADHAR_CARD = "etAdharNumber"
+        const val CUSTOMER_COLUMN_ADHAR_CARD = "etAadharNumber" // Corrected Spelling
         const val CUSTOMER_COLUMN_FATHER_YEAR = "etFatherYear"
         const val CUSTOMER_COLUMN_FATHER_AGE = "etFatherAge"
         const val CUSTOMER_COLUMN_FATHER_CONDITION = "etFatherCondition"
@@ -37,7 +37,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         const val CUSTOMER_COLUMN_MOTHER_CONDITION = "etMotherCondition"
         const val CUSTOMER_COLUMN_BROTHER_YEAR = "etBrotherYear"
         const val CUSTOMER_COLUMN_BROTHER_AGE = "etBrotherAge"
-        const val CUSTOMER_COLUMN_BROTHER_CONDITION = "eBrotherCondition"
+        const val CUSTOMER_COLUMN_BROTHER_CONDITION = "etBrotherCondition" // Corrected Field Name
         const val CUSTOMER_COLUMN_SISTER_YEAR = "etSisterYear"
         const val CUSTOMER_COLUMN_SISTER_AGE = "etSisterAge"
         const val CUSTOMER_COLUMN_SISTER_CONDITION = "etSisterCondition"
@@ -51,17 +51,17 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         const val CUSTOMER_COLUMN_WEIGHT = "etWeight"
         const val CUSTOMER_COLUMN_WAIST = "etWaist"
         const val CUSTOMER_COLUMN_CHEST = "etChest"
-        const val CUSTOMER_COLUMN_ILLNESS = "etIlleness"
+        const val CUSTOMER_COLUMN_ILLNESS = "etIllness" // Corrected Spelling
         const val CUSTOMER_COLUMN_ACCOUNT_HOLDER_NAME = "etAccountHolderName"
         const val CUSTOMER_COLUMN_ACCOUNT_NUMBER = "etAccountNumber"
-        const val CUSTOMER_COLUMN_BANK_NAME = "etBanmeName"
+        const val CUSTOMER_COLUMN_BANK_NAME = "etBankName" // Corrected Spelling
         const val CUSTOMER_COLUMN_MICR = "etMicr"
         const val CUSTOMER_COLUMN_IFSC = "etIfsc"
         const val CUSTOMER_COLUMN_EDUCATION = "etEducation"
-        const val CUSTOMER_COLUMN_OCCUPATION = "Occuption"
+        const val CUSTOMER_COLUMN_OCCUPATION = "etOccupation" // Corrected Spelling
         const val CUSTOMER_COLUMN_ANNUAL_INCOME = "etAnnualIncome"
         const val CUSTOMER_COLUMN_COMPANY_NAME = "etCompanyName"
-        const val CUSTOMER_COLUMN_SINCE_WHEN = "etsinceWhen"
+        const val CUSTOMER_COLUMN_SINCE_WHEN = "etSinceWhen" // Corrected Spelling
 
         // Policy Table
         const val POLICY_TABLE = "PolicyDetails"
@@ -222,16 +222,36 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return lastId
     }
 
-    fun getCustomerWithPolicies(entryId: Int): Pair<Cursor?, Cursor?> {
+    fun getCustomerWithPoliciesAndFamily(entryId: Int): Triple<Cursor?, Cursor?, Cursor?> {
         val db = readableDatabase
+
+        // Fetch customer details
         val customerCursor = db.rawQuery(
             "SELECT * FROM $CUSTOMER_TABLE WHERE $CUSTOMER_COLUMN_ENTRY_ID = ?",
             arrayOf(entryId.toString())
         )
+
+        // Fetch policy details linked to the customer
         val policyCursor = db.rawQuery(
             "SELECT * FROM $POLICY_TABLE WHERE $POLICY_COLUMN_CUSTOMER_ID = ?",
             arrayOf(entryId.toString())
         )
-        return Pair(customerCursor, policyCursor)
+
+        // Fetch family details (Father, Mother, Brother, Sister, Spouse, Children)
+        val familyCursor = db.rawQuery(
+            """
+        SELECT 
+            $CUSTOMER_COLUMN_FATHER_YEAR, $CUSTOMER_COLUMN_FATHER_AGE, $CUSTOMER_COLUMN_FATHER_CONDITION,
+            $CUSTOMER_COLUMN_MOTHER_YEAR, $CUSTOMER_COLUMN_MOTHER_AGE, $CUSTOMER_COLUMN_MOTHER_CONDITION,
+            $CUSTOMER_COLUMN_BROTHER_YEAR, $CUSTOMER_COLUMN_BROTHER_AGE, $CUSTOMER_COLUMN_BROTHER_CONDITION,
+            $CUSTOMER_COLUMN_SISTER_YEAR, $CUSTOMER_COLUMN_SISTER_AGE, $CUSTOMER_COLUMN_SISTER_CONDITION,
+            $CUSTOMER_COLUMN_HUSBAND_YEAR, $CUSTOMER_COLUMN_HUSBAND_AGE, $CUSTOMER_COLUMN_HUSBAND_CONDITION,
+            $CUSTOMER_COLUMN_CHILDREN_YEAR, $CUSTOMER_COLUMN_CHILDREN_AGE, $CUSTOMER_COLUMN_CHILDREN_CONDITION
+        FROM $CUSTOMER_TABLE WHERE $CUSTOMER_COLUMN_ENTRY_ID = ?
+        """,
+            arrayOf(entryId.toString())
+        )
+
+        return Triple(customerCursor, policyCursor, familyCursor)
     }
 }

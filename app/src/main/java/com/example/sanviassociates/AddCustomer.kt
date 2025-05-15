@@ -72,7 +72,7 @@ class AddCustomer : AppCompatActivity() {
     }
 
     private fun setupNommineeDatePicker() {
-        val etNommineeDate: EditText = binding.etNommineeDate
+        val etNommineeDate: EditText = binding.etNomineeDate
 
         etNommineeDate.setOnClickListener {
             // Create constraints to prevent selecting future dates

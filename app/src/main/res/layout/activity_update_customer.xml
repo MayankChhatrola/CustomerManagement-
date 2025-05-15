@@ -277,7 +277,7 @@
                                 android:layout_marginBottom="@dimen/_12sdp">
 
                                 <EditText
-                                    android:id="@+id/etNominneName"
+                                    android:id="@+id/etNomineeName"
                                     style="@style/CustomEditText"
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/_40sdp"
@@ -295,7 +295,7 @@
                                 android:layout_marginBottom="@dimen/_12sdp">
 
                                 <EditText
-                                    android:id="@+id/etNommineeDate"
+                                    android:id="@+id/etNomineeDate"
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/_40sdp"
                                     android:background="@drawable/edittext_bg"
@@ -574,7 +574,7 @@
 
                                     <!-- Row: Condition -->
                                     <EditText
-                                        android:id="@+id/eBrotherCondition"
+                                        android:id="@+id/etBrotherCondition"
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/_40sdp"
                                         android:hint="Medical Condition"
@@ -940,7 +940,7 @@
                                 android:layout_marginBottom="@dimen/_12sdp">
 
                                 <EditText
-                                    android:id="@+id/etIlleness"
+                                    android:id="@+id/etIllness"
                                     style="@style/CustomEditText"
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/_40sdp"
@@ -1057,7 +1057,7 @@
                                 android:layout_marginBottom="@dimen/_12sdp">
 
                                 <EditText
-                                    android:id="@+id/etBanmeName"
+                                    android:id="@+id/etBankName"
                                     style="@style/CustomEditText"
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/_40sdp"
@@ -1125,7 +1125,7 @@
                                 android:layout_marginBottom="@dimen/_12sdp">
 
                                 <EditText
-                                    android:id="@+id/etAdharNumber"
+                                    android:id="@+id/etAadharNumber"
                                     style="@style/CustomEditText"
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/_40sdp"
@@ -1159,7 +1159,7 @@
                                 android:layout_marginBottom="@dimen/_12sdp">
 
                                 <EditText
-                                    android:id="@+id/Occuption"
+                                    android:id="@+id/etOccupation"
                                     style="@style/CustomEditText"
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/_40sdp"
@@ -1210,7 +1210,7 @@
                                 android:layout_marginBottom="@dimen/_12sdp">
 
                                 <EditText
-                                    android:id="@+id/etsinceWhen"
+                                    android:id="@+id/etSinceWhen"
                                     style="@style/CustomEditText"
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/_40sdp"
