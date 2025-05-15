@@ -10,8 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.lifecycleScope
-import androidx.media3.exoplayer.source.chunk.Chunk
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_ADDRESS
 import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_ENTRY_ID
@@ -19,7 +17,6 @@ import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_FULL
 import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_TABLE
 import com.example.sanviassociates.databinding.ActivityHomePageBinding
 import com.example.sanviassociates.helpermethod.PermissionUtil
-import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
@@ -27,22 +24,10 @@ import com.itextpdf.layout.element.Cell
 import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
 import com.itextpdf.layout.properties.TextAlignment
-import kotlinx.coroutines.launch
-import com.itextpdf.kernel.colors.ColorConstants
 import com.itextpdf.kernel.geom.PageSize
-import com.itextpdf.layout.borders.Border
-import com.itextpdf.layout.element.*
 import com.itextpdf.layout.properties.UnitValue
 import java.io.File
-import android.media.MediaScannerConnection
-import android.net.Uri
-import android.os.Build
-import android.provider.Settings
-import android.view.View
 import com.itextpdf.kernel.colors.DeviceRgb
-import com.itextpdf.layout.Canvas
-import com.itextpdf.layout.element.Image
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas
 
 
 class HomePage : AppCompatActivity() {
@@ -364,7 +349,7 @@ class HomePage : AppCompatActivity() {
         familyCursor?.close()
         policyCursor?.close()
 
-      //  Toast.makeText(context, "PDF saved to: ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
+      //  Toast.makeText(context, "PDF saved to: ${NNNNpdfFile.absolutePath}", Toast.LENGTH_LONG).show()
         Toast.makeText(context, "PDF saved Successfully.", Toast.LENGTH_LONG).show()
     }
 

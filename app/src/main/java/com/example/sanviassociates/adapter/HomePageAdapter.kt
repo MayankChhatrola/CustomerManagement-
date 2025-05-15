@@ -5,8 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sanviassociates.EntryData
-import com.example.sanviassociates.R
 import com.google.android.material.card.MaterialCardView
 
 class HomePageAdapter(
