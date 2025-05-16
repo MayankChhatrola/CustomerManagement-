@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorPrimary"
+        android:layout_margin="12dp"
+        app:cardElevation="@dimen/_2sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/_16sdp">
+
+            <!-- Branch -->
+            <TextView
+                android:id="@+id/tvBranchName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Branch"
+                android:textSize="@dimen/_14sdp"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:background="@drawable/edittext_bg"
+                android:layout_marginBottom="@dimen/_12sdp" />
+
+            <!-- Policy Number -->
+            <TextView
+                android:id="@+id/tvPolicyNumber"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Policy Number"
+                android:textSize="@dimen/_14sdp"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:background="@drawable/edittext_bg"
+                android:layout_marginBottom="@dimen/_12sdp" />
+
+            <!-- Start Date -->
+            <TextView
+                android:id="@+id/tvStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Start Date"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/edittext_bg"
+                android:layout_marginBottom="@dimen/_12sdp" />
+
+            <!-- Sum Assured -->
+            <TextView
+                android:id="@+id/tvSumAssured"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Sum Assured"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:background="@drawable/edittext_bg"
+                android:layout_marginBottom="@dimen/_12sdp" />
+
+            <!-- Plan/Term -->
+            <TextView
+                android:id="@+id/tvPlan"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Plan/Term"
+                android:textSize="@dimen/_14sdp"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:background="@drawable/edittext_bg"
+                android:layout_marginBottom="@dimen/_12sdp" />
+
+            <!-- Premium -->
+            <TextView
+                android:id="@+id/tvPolicyPremium"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Premium"
+                android:textSize="@dimen/_14sdp"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:background="@drawable/edittext_bg" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

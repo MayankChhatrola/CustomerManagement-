@@ -1,5 +1,7 @@
+/*
 package com.example.sanviassociates
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +36,10 @@ class HomePageAdapter(
         holder.tvCustomerName.text = entryData.customerName
 
         // Handle button clicks
-        holder.mvcView.setOnClickListener { onViewClick(entryData) }
+       // holder.mvcView.setOnClickListener { onViewClick(entryData) }
+        holder.mvcView.setOnClickListener {
+            onViewClick(entryData)
+        }
         holder.mvcEdit.setOnClickListener {
             // Trigger the onEditClick callback
             onEditClick(entryData)
@@ -45,6 +50,51 @@ class HomePageAdapter(
     override fun getItemCount(): Int = dataList.size
 
     // Update data dynamically
+    fun updateData(newDataList: List<EntryData>) {
+        dataList = newDataList
+        notifyDataSetChanged()
+    }
+}
+*/
+package com.example.sanviassociates
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.sanviassociates.databinding.RecyclerItemBinding
+
+class HomePageAdapter(
+    private var dataList: List<EntryData>,
+    private val onViewClick: (EntryData) -> Unit,
+    private val onEditClick: (EntryData) -> Unit,
+    private val onDeleteClick: (EntryData) -> Unit
+) : RecyclerView.Adapter<HomePageAdapter.HomePageViewHolder>() {
+
+    inner class HomePageViewHolder(private val binding: RecyclerItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(entryData: EntryData) {
+            binding.tvCustomerName.text = entryData.customerName
+
+            // Handle button clicks
+            binding.mvcView.setOnClickListener { onViewClick(entryData) }
+            binding.mvcEdit.setOnClickListener { onEditClick(entryData) }
+            binding.mvcDelete.setOnClickListener { onDeleteClick(entryData) }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomePageViewHolder {
+        val binding = RecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return HomePageViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: HomePageViewHolder, position: Int) {
+        holder.bind(dataList[position])
+    }
+
+    override fun getItemCount(): Int = dataList.size
+
     fun updateData(newDataList: List<EntryData>) {
         dataList = newDataList
         notifyDataSetChanged()
