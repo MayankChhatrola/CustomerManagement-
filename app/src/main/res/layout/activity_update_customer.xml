@@ -312,7 +312,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
             <!-- family Details Section -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_family_details"
