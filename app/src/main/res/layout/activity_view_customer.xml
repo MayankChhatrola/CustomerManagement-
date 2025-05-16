@@ -275,8 +275,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Nommine Name"
-                                    android:padding="8dp"
-                                    android:maxLength="6" />
+                                    android:padding="8dp" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Nommine Date -->

@@ -128,7 +128,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Full Name"
                                     android:padding="8dp"
-                                    android:inputType="textPersonName" />
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Father's Name -->
@@ -145,7 +145,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Father's Name"
                                     android:padding="8dp"
-                                    android:inputType="textPersonName" />
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Mother's Name -->
@@ -162,7 +162,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Mother's Name"
                                     android:padding="8dp"
-                                    android:inputType="textPersonName" />
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Birth Place -->
@@ -179,7 +179,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Birth Place"
                                     android:padding="8dp"
-                                    android:inputType="text"/>
+                                    android:inputType="textCapCharacters"/>
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Birth Date -->
@@ -250,7 +250,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Address"
                                     android:padding="8dp"
-                                    android:inputType="textPostalAddress" />
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Pincode -->
@@ -285,8 +285,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Nommine Name"
                                     android:padding="8dp"
-                                    android:inputType="textPersonName"
-                                    android:maxLength="6" />
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Nommine Date -->
@@ -303,6 +302,7 @@
                                     android:background="@drawable/edittext_bg"
                                     android:hint="Nomminee Date of Birth"
                                     android:focusable="false"
+                                    android:textAllCaps="true"
                                     android:cursorVisible="false"
                                     android:inputType="none"
                                     android:padding="8dp"
@@ -416,6 +416,7 @@
                                             android:cursorVisible="false"
                                             android:inputType="none"
                                             android:padding="8dp"
+                                            android:textAllCaps="true"
                                             android:textSize="@dimen/_14sdp" />
 
                                         <Space
@@ -430,6 +431,7 @@
                                             android:hint="Age"
                                             android:inputType="number"
                                             android:textSize="@dimen/_14sdp"
+                                            android:textAllCaps="true"
                                             android:background="@drawable/edittext_bg"
                                             android:padding="8dp" />
 
@@ -441,8 +443,9 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/_40sdp"
                                         android:hint="Medical Condition"
-                                        android:inputType="text"
+                                        android:inputType="textCapCharacters"
                                         android:textSize="@dimen/_14sdp"
+                                        android:textAllCaps="true"
                                         android:background="@drawable/edittext_bg"
                                         android:padding="8dp" />
                                 </LinearLayout>
@@ -487,6 +490,7 @@
                                             android:hint="Date of Birth"
                                             android:textSize="@dimen/_14sdp"
                                             android:focusable="false"
+                                            android:textAllCaps="true"
                                             android:cursorVisible="false"
                                             android:inputType="none"                                                 android:background="@drawable/edittext_bg"
                                             android:padding="8dp" />
@@ -501,6 +505,7 @@
                                             android:layout_height="@dimen/_40sdp"
                                             android:layout_weight="1"
                                             android:hint="Age"
+                                            android:textAllCaps="true"
                                             android:textSize="@dimen/_14sdp"
                                             android:inputType="number"
                                             android:background="@drawable/edittext_bg"
@@ -514,8 +519,9 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/_40sdp"
                                         android:hint="Medical Condition"
-                                        android:inputType="text"
+                                        android:inputType="textCapCharacters"
                                         android:textSize="@dimen/_14sdp"
+                                        android:textAllCaps="true"
                                         android:background="@drawable/edittext_bg"
                                         android:padding="8dp" />
                                 </LinearLayout>
@@ -562,6 +568,7 @@
                                             android:focusable="false"
                                             android:cursorVisible="false"
                                             android:inputType="none"
+                                            android:textAllCaps="true"
                                             android:background="@drawable/edittext_bg"
                                             android:padding="8dp" />
 
@@ -576,6 +583,7 @@
                                             android:layout_weight="1"
                                             android:hint="Age"
                                             android:textSize="@dimen/_14sdp"
+                                            android:textAllCaps="true"
                                             android:inputType="number"
                                             android:background="@drawable/edittext_bg"
                                             android:padding="8dp" />
@@ -587,8 +595,9 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/_40sdp"
                                         android:hint="Medical Condition"
-                                        android:inputType="text"
+                                        android:inputType="textCapCharacters"
                                         android:textSize="@dimen/_14sdp"
+                                        android:textAllCaps="true"
                                         android:background="@drawable/edittext_bg"
                                         android:padding="8dp" />
                                 </LinearLayout>
@@ -633,6 +642,7 @@
                                             android:hint="Date of Birth"
                                             android:textSize="@dimen/_14sdp"
                                             android:focusable="false"
+                                            android:textAllCaps="true"
                                             android:cursorVisible="false"
                                             android:inputType="none"
                                             android:background="@drawable/edittext_bg"
@@ -648,6 +658,7 @@
                                             android:layout_height="@dimen/_40sdp"
                                             android:layout_weight="1"
                                             android:hint="Age"
+                                            android:textAllCaps="true"
                                             android:textSize="@dimen/_14sdp"
                                             android:inputType="number"
                                             android:background="@drawable/edittext_bg"
@@ -660,7 +671,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/_40sdp"
                                         android:hint="Medical Condition"
-                                        android:inputType="text"
+                                        android:inputType="textCapCharacters"
+                                        android:textAllCaps="true"
                                         android:textSize="@dimen/_14sdp"
                                         android:background="@drawable/edittext_bg"
                                         android:padding="8dp" />
@@ -706,6 +718,7 @@
                                             android:hint="Date of Birth"
                                             android:textSize="@dimen/_14sdp"
                                             android:focusable="false"
+                                            android:textAllCaps="true"
                                             android:cursorVisible="false"
                                             android:inputType="none"
                                             android:background="@drawable/edittext_bg"
@@ -721,6 +734,7 @@
                                             android:layout_height="@dimen/_40sdp"
                                             android:layout_weight="1"
                                             android:hint="Age"
+                                            android:textAllCaps="true"
                                             android:textSize="@dimen/_14sdp"
                                             android:inputType="number"
                                             android:background="@drawable/edittext_bg"
@@ -734,7 +748,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/_40sdp"
                                         android:hint="Medical Condition"
-                                        android:inputType="text"
+                                        android:inputType="textCapCharacters"
+                                        android:textAllCaps="true"
                                         android:textSize="@dimen/_14sdp"
                                         android:background="@drawable/edittext_bg"
                                         android:padding="8dp" />
@@ -781,6 +796,7 @@
                                             android:focusable="false"
                                             android:cursorVisible="false"
                                             android:inputType="none"
+                                            android:textAllCaps="true"
                                             android:background="@drawable/edittext_bg"
                                             android:padding="8dp" />
 
@@ -796,6 +812,7 @@
                                             android:hint="Age"
                                             android:textSize="@dimen/_14sdp"
                                             android:inputType="number"
+                                            android:textAllCaps="true"
                                             android:background="@drawable/edittext_bg"
                                             android:padding="8dp" />
 
@@ -807,8 +824,9 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/_40sdp"
                                         android:hint="Medical Condition"
-                                        android:inputType="text"
+                                        android:inputType="textCapCharacters"
                                         android:textSize="@dimen/_14sdp"
+                                        android:textAllCaps="true"
                                         android:background="@drawable/edittext_bg"
                                         android:padding="8dp" />
                                 </LinearLayout>
@@ -850,6 +868,7 @@
                             android:layout_marginRight="@dimen/_10sdp"
                             android:text="Medical Details"
                             android:textStyle="bold"
+                            android:textAllCaps="true"
                             android:layout_centerVertical="true"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_15sdp" />
@@ -963,7 +982,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Any Illness"
                                     android:padding="8dp"
-                                    android:inputType="textMultiLine" />
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                         </LinearLayout>
@@ -1045,7 +1064,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:padding="8dp"
                                     android:hint="Bank Account Holder Name"
-                                    android:inputType="textPersonName" />
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Bank Account Number -->
@@ -1079,7 +1098,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Bank Name"
                                     android:padding="8dp"
-                                    android:inputType="textPersonName" />
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- MICR -->
@@ -1096,6 +1115,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="MICR"
                                     android:padding="8dp"
+                                    android:maxLength="9"
                                     android:inputType="number" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -1113,7 +1133,8 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="IFSC Code"
                                     android:padding="8dp"
-                                    android:inputType="text" />
+                                    android:maxLength="11"
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Pancard -->
@@ -1130,7 +1151,8 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Pancard"
                                     android:padding="8dp"
-                                    android:inputType="text" />
+                                    android:maxLength="10"
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Aadhar Number -->
@@ -1147,6 +1169,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Aadhar Number"
                                     android:padding="8dp"
+                                    android:maxLength="12"
                                     android:inputType="text" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -1164,7 +1187,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Education"
                                     android:padding="8dp"
-                                    android:inputType="text" />
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Occupation -->
@@ -1181,7 +1204,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:hint="Occupation"
                                     android:padding="8dp"
-                                    android:inputType="text" />
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Annual Income -->
@@ -1215,7 +1238,7 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:padding="8dp"
                                     android:hint="Organization/Company Name"
-                                    android:inputType="textPersonName" />
+                                    android:inputType="textCapCharacters" />
                             </com.google.android.material.card.MaterialCardView>
 
                             <!-- Since When -->
@@ -1304,8 +1327,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
-            <!-- Fixed Button at the Bottom -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/submit_button"
                 android:layout_width="@dimen/_180sdp"

@@ -174,6 +174,11 @@ class AddCustomer : AppCompatActivity() {
 
     // Section: Handle Submit Button
     private fun fetchSaveAndClearFields() {
+
+        if (!validateImportantFields()) {
+            return
+        }
+
         val customerData = ContentValues()
         val policyDataList = mutableListOf<ContentValues>()
 
@@ -189,6 +194,7 @@ class AddCustomer : AppCompatActivity() {
             Toast.makeText(this, "Customer Name is required. Please enter it before submitting.", Toast.LENGTH_SHORT).show()
             return
         }
+
 
         // Get the last customer entry ID and increment it
         val lastEntryId = databaseHelper.getLastCustomerEntryId()
@@ -364,4 +370,59 @@ class AddCustomer : AppCompatActivity() {
             }
         }
     }
+
+    private fun validateImportantFields(): Boolean {
+        val aadhar = binding.etAadharNumber.text.toString().trim()
+        val pan = binding.etPancard.text.toString().trim()
+        val email = binding.etEmailId.text.toString().trim()
+        val mobile = binding.etMobileNumber.text.toString().trim()
+        val ifsc = binding.etIfsc.text.toString().trim()
+        val micr = binding.etMicr.text.toString().trim()
+        val pincode = binding.etPincode.text.toString().trim()
+
+        val mobileRegex = Regex("^[6-9]\\d{9}$")
+        if (!mobileRegex.matches(mobile)) {
+            Toast.makeText(this, "Invalid Mobile Number. Should start with 6-9 and be 10 digits.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        val emailRegex = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
+        if (!emailRegex.matches(email)) {
+            Toast.makeText(this, "Invalid Email ID format.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        val pincodeRegex = Regex("^[1-9][0-9]{5}$")
+        if (!pincodeRegex.matches(pincode)) {
+            Toast.makeText(this, "Invalid Pincode. Should be 6 digits and not start with 0.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        val micrRegex = Regex("^\\d{9}$")
+        if (!micrRegex.matches(micr)) {
+            Toast.makeText(this, "Invalid MICR Code. Should be 9 digits.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        val ifscRegex = Regex("^[A-Z]{4}0[A-Z0-9]{6}$")
+        if (!ifscRegex.matches(ifsc)) {
+            Toast.makeText(this, "Invalid IFSC Code. Format: ABCD0XXXXXX", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        val panRegex = Regex("^[A-Z]{5}[0-9]{4}[A-Z]$")
+        if (!panRegex.matches(pan)) {
+            Toast.makeText(this, "Invalid PAN number. Format: ABCDE1234F", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        val aadhaarRegex = Regex("^\\d{12}$")
+        if (!aadhaarRegex.matches(aadhar)) {
+            Toast.makeText(this, "Invalid Aadhaar number. It should be 12 digits.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
+    }
+
 }
