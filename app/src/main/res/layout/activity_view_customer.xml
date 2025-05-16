@@ -1,10 +1,1324 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main"
     tools:context=".ViewCustomer">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivAddBack"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:background="@drawable/back"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_18sdp"
+            android:backgroundTint="@color/colorOnSecondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorOnSecondary"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_below="@id/tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:fillViewport="true"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Personal Details Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_personal_details"
+                style="@style/CustomCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <!-- Section Header -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvPersonalDetails"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_centerVertical="true"
+                            android:text="Personal Details"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_15sdp" />
+
+
+                        <ImageView
+                            android:src="@drawable/down"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            app:tint="@color/colorPrimary" />
+
+                    </RelativeLayout>
+                    <!-- Section Content -->
+                    <LinearLayout
+                        android:id="@+id/container_personal_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/_16sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!-- Full Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvFullName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Full Name"
+                                    android:padding="8dp"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Father's Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvFatherName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Father's Name"
+                                    android:padding="8dp"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Mother's Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvMotherName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Mother's Name"
+                                    android:padding="8dp"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Birth Place -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvBirthPlace"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Birth Place"
+                                    android:padding="8dp"
+                                    android:inputType="text"/>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Birth Date -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvBirthDate"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Birth Date"
+                                    android:padding="8dp"
+                                    android:focusable="false"
+                                    android:cursorVisible="false"
+                                    android:inputType="none" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Mobile Number -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvMobileNumber"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Mobile Number"
+                                    android:inputType="phone"
+                                    android:padding="8dp"
+                                    android:maxLength="10" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- email -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvEmailId"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Email Id"
+                                    android:padding="8dp"
+                                    android:inputType="textEmailAddress"/>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Address -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvAddress"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Address"
+                                    android:padding="8dp"
+                                    android:inputType="textPostalAddress" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Pincode -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvPincode"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Pincode"
+                                    android:padding="8dp"
+                                    android:inputType="number"
+                                    android:maxLength="6" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Nominne Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvNomineeName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Nommine Name"
+                                    android:padding="8dp"
+                                    android:inputType="textPersonName"
+                                    android:maxLength="6" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Nommine Date -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvNomineeDate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:background="@drawable/edittext_bg"
+                                    android:hint="Nomminee Date of Birth"
+                                    android:focusable="false"
+                                    android:cursorVisible="false"
+                                    android:inputType="none"
+                                    android:padding="8dp"
+                                    android:textSize="@dimen/_14sdp" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- family Details Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_family_details"
+                style="@style/CustomCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <!-- Section Header -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvfamilyDetails"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:text="Family Details"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_15sdp" />
+
+
+                        <ImageView
+                            android:src="@drawable/down"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            app:tint="@color/colorPrimary" />
+
+                    </RelativeLayout>
+                    <!-- Section Content -->
+                    <LinearLayout
+                        android:id="@+id/container_family_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/_16sdp">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@android:color/white">
+
+                            <!--father-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                app:cardBackgroundColor="@color/colorPrimary"
+                                app:cardElevation="@dimen/_4sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_margin="@dimen/_12sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Father"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="8dp" />
+
+                                    <!-- Row: Age & Year -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:layout_marginBottom="8dp">
+
+                                        <TextView
+                                            android:id="@+id/tvFatherYear"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/edittext_bg"
+                                            android:hint="Date of Birth"
+                                            android:focusable="false"
+                                            android:cursorVisible="false"
+                                            android:inputType="none"
+                                            android:padding="8dp"
+                                            android:textSize="@dimen/_14sdp" />
+
+                                        <Space
+                                            android:layout_width="8dp"
+                                            android:layout_height="wrap_content" />
+
+                                        <TextView
+                                            android:id="@+id/tvFatherAge"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Age"
+                                            android:inputType="number"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                    </LinearLayout>
+
+                                    <!-- Row: Condition -->
+                                    <TextView
+                                        android:id="@+id/tvFatherCondition"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="Medical Condition"
+                                        android:inputType="text"
+                                        android:textSize="@dimen/_14sdp"
+                                        android:background="@drawable/edittext_bg"
+                                        android:padding="8dp" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <!--mother-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                app:cardBackgroundColor="@color/colorPrimary"
+                                app:cardElevation="@dimen/_4sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_margin="@dimen/_12sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Mother"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="8dp" />
+
+                                    <!-- Row: Age & Year -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:layout_marginBottom="8dp">
+
+                                        <TextView
+                                            android:id="@+id/tvMotherYear"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Date of Birth"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:focusable="false"
+                                            android:cursorVisible="false"
+                                            android:inputType="none"                                                 android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                        <Space
+                                            android:layout_width="8dp"
+                                            android:layout_height="wrap_content" />
+
+                                        <TextView
+                                            android:id="@+id/tvMotherAge"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Age"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                    </LinearLayout>
+
+                                    <!-- Row: Condition -->
+                                    <TextView
+                                        android:id="@+id/tvMotherCondition"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="Medical Condition"
+                                        android:inputType="text"
+                                        android:textSize="@dimen/_14sdp"
+                                        android:background="@drawable/edittext_bg"
+                                        android:padding="8dp" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <!--brother-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                app:cardBackgroundColor="@color/colorPrimary"
+                                app:cardElevation="@dimen/_4sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_margin="@dimen/_12sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Brother"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="8dp" />
+
+                                    <!-- Row: Age & Year -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:layout_marginBottom="8dp">
+
+                                        <TextView
+                                            android:id="@+id/tvBrotherYear"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Date of Birth"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:focusable="false"
+                                            android:cursorVisible="false"
+                                            android:inputType="none"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                        <Space
+                                            android:layout_width="8dp"
+                                            android:layout_height="wrap_content" />
+
+                                        <TextView
+                                            android:id="@+id/tvBrotherAge"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Age"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+                                    </LinearLayout>
+
+                                    <!-- Row: Condition -->
+                                    <TextView
+                                        android:id="@+id/tvBrotherCondition"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="Medical Condition"
+                                        android:inputType="text"
+                                        android:textSize="@dimen/_14sdp"
+                                        android:background="@drawable/edittext_bg"
+                                        android:padding="8dp" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <!--Sister-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                app:cardBackgroundColor="@color/colorPrimary"
+                                app:cardElevation="@dimen/_4sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_margin="@dimen/_12sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Sister"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="8dp" />
+
+                                    <!-- Row: Age & Year -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:layout_marginBottom="8dp">
+
+                                        <TextView
+                                            android:id="@+id/tvSisterYear"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Date of Birth"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:focusable="false"
+                                            android:cursorVisible="false"
+                                            android:inputType="none"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                        <Space
+                                            android:layout_width="8dp"
+                                            android:layout_height="wrap_content" />
+
+                                        <TextView
+                                            android:id="@+id/tvSisterAge"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Age"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+                                    </LinearLayout>
+
+                                    <!-- Row: Condition -->
+                                    <TextView
+                                        android:id="@+id/tvSisterCondition"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="Medical Condition"
+                                        android:inputType="text"
+                                        android:textSize="@dimen/_14sdp"
+                                        android:background="@drawable/edittext_bg"
+                                        android:padding="8dp" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <!--Husband / Wife-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                app:cardBackgroundColor="@color/colorPrimary"
+                                app:cardElevation="@dimen/_4sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_margin="@dimen/_12sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Husband / Wife"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="8dp" />
+
+                                    <!-- Row: Age & Year -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:layout_marginBottom="8dp">
+
+                                        <TextView
+                                            android:id="@+id/tvHusbandYear"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Date of Birth"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:focusable="false"
+                                            android:cursorVisible="false"
+                                            android:inputType="none"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                        <Space
+                                            android:layout_width="8dp"
+                                            android:layout_height="wrap_content" />
+
+                                        <TextView
+                                            android:id="@+id/tvHusbandAge"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Age"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                    </LinearLayout>
+
+                                    <!-- Row: Condition -->
+                                    <TextView
+                                        android:id="@+id/tvHusbandCondition"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="Medical Condition"
+                                        android:inputType="text"
+                                        android:textSize="@dimen/_14sdp"
+                                        android:background="@drawable/edittext_bg"
+                                        android:padding="8dp" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!--Children-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                app:cardBackgroundColor="@color/colorPrimary"
+                                app:cardElevation="@dimen/_4sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_margin="@dimen/_12sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Children"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="8dp" />
+
+                                    <!-- Row: Age & Year -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:layout_marginBottom="8dp">
+
+                                        <TextView
+                                            android:id="@+id/tvChildrenYear"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Date of Birth"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:focusable="false"
+                                            android:cursorVisible="false"
+                                            android:inputType="none"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                        <Space
+                                            android:layout_width="8dp"
+                                            android:layout_height="wrap_content" />
+
+                                        <TextView
+                                            android:id="@+id/tvChildrenAge"
+                                            android:layout_width="0dp"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_weight="1"
+                                            android:hint="Age"
+                                            android:textSize="@dimen/_14sdp"
+                                            android:inputType="number"
+                                            android:background="@drawable/edittext_bg"
+                                            android:padding="8dp" />
+
+                                    </LinearLayout>
+
+                                    <!-- Row: Condition -->
+                                    <TextView
+                                        android:id="@+id/tvChildrenCondition"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="Medical Condition"
+                                        android:inputType="text"
+                                        android:textSize="@dimen/_14sdp"
+                                        android:background="@drawable/edittext_bg"
+                                        android:padding="8dp" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- medical Details Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_meddical_details"
+                style="@style/CustomCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+
+                    <!-- Section Header -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvMedicalDetails"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:text="Medical Details"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_15sdp" />
+
+
+                        <ImageView
+                            android:src="@drawable/down"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            app:tint="@color/colorPrimary" />
+
+                    </RelativeLayout>
+                    <!-- Section Content -->
+                    <LinearLayout
+                        android:id="@+id/container_meddical_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/_16sdp">
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!-- Height -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvHeight"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Height (in cm)"
+                                    android:padding="8dp"
+                                    android:inputType="numberDecimal" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Weight -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvWeight"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Weight (in kg)"
+                                    android:padding="8dp"
+                                    android:inputType="numberDecimal" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Waist -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvWaist"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Waist (in cm)"
+                                    android:padding="8dp"
+                                    android:inputType="numberDecimal" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Chest -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvChest"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Chest (in cm)"
+                                    android:padding="8dp"
+                                    android:inputType="numberDecimal" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Any Illness -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvIllness"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Any Illness"
+                                    android:padding="8dp"
+                                    android:inputType="textMultiLine" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- other Details Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_other_details"
+                style="@style/CustomCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+
+                    <!-- Section Header -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:text="Other Details"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_15sdp" />
+
+
+                        <ImageView
+                            android:src="@drawable/down"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            app:tint="@color/colorPrimary" />
+
+                    </RelativeLayout>
+                    <!-- Section Content -->
+                    <LinearLayout
+                        android:id="@+id/container_other_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/_12sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!-- Bank Account Holder Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvAccountHolderName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:padding="8dp"
+                                    android:hint="Bank Account Holder Name"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Bank Account Number -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvAccountNumber"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:padding="8dp"
+                                    android:hint="Bank Account Number"
+                                    android:inputType="number" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Bank Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvBankName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Bank Name"
+                                    android:padding="8dp"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- MICR -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvMicr"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="MICR"
+                                    android:padding="8dp"
+                                    android:inputType="number" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- IFSC Code -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvIfsc"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="IFSC Code"
+                                    android:padding="8dp"
+                                    android:inputType="text" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Pancard -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvPancard"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Pancard"
+                                    android:padding="8dp"
+                                    android:inputType="text" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Aadhar Number -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvAadharNumber"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Aadhar Number"
+                                    android:padding="8dp"
+                                    android:inputType="text" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Education -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvEducation"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Education"
+                                    android:padding="8dp"
+                                    android:inputType="text" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Occupation -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvOccupation"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Occupation"
+                                    android:padding="8dp"
+                                    android:inputType="text" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Annual Income -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvAnnualIncome"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:hint="Annual Income"
+                                    android:padding="8dp"
+                                    android:inputType="numberDecimal" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Organization/Company Name -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvCompanyName"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:padding="8dp"
+                                    android:hint="Organization/Company Name"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Since When -->
+                            <com.google.android.material.card.MaterialCardView
+                                style="@style/CustomCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_12sdp">
+
+                                <TextView
+                                    android:id="@+id/tvSinceWhen"
+                                    style="@style/CustomEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:padding="8dp"
+                                    android:hint="Since When (e.g., Year)"
+                                    android:inputType="date" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- Prevoius Policy Section Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPreviousePolicyDetails"
+                style="@style/CustomCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Header -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvPreviousPolicy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:text="Previous Policy"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:src="@drawable/down"
+                            app:tint="@color/colorPrimary" />
+                    </RelativeLayout>
+
+                    <!-- Dynamic Container -->
+                    <LinearLayout
+                        android:id="@+id/containerPrevoiusPolicyDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- Fixed Button at the Bottom -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/downloadButton"
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_40sdp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_gravity="center"
+                app:strokeColor="@color/colorPrimary"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/_50sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_16sdp"
+                    android:text="Download"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorOnSecondary"
+                    />
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>
