@@ -1,10 +1,7 @@
 package com.example.sanviassociates
 
-import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,18 +14,6 @@ import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_COLUMN_FULL
 import com.example.sanviassociates.DatabaseHelper.Companion.CUSTOMER_TABLE
 import com.example.sanviassociates.databinding.ActivityHomePageBinding
 import com.example.sanviassociates.helpermethod.PermissionUtil
-import com.itextpdf.kernel.pdf.PdfDocument
-import com.itextpdf.kernel.pdf.PdfWriter
-import com.itextpdf.layout.Document
-import com.itextpdf.layout.element.Cell
-import com.itextpdf.layout.element.Paragraph
-import com.itextpdf.layout.element.Table
-import com.itextpdf.layout.properties.TextAlignment
-import com.itextpdf.kernel.geom.PageSize
-import com.itextpdf.layout.properties.UnitValue
-import java.io.File
-import com.itextpdf.kernel.colors.DeviceRgb
-
 
 class HomePage : AppCompatActivity() {
 
@@ -154,9 +139,6 @@ class HomePage : AppCompatActivity() {
         homepageBinding.recyclerView.layoutManager = LinearLayoutManager(this)
         homepageBinding.recyclerView.adapter = adapter
     }
-
-
-
 
     private fun deleteCustomer(entryData: EntryData) {
         val entryId = entryData.entryId

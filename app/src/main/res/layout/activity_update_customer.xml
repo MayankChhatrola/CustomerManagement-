@@ -1242,7 +1242,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
             <!-- Prevoius Policy Section Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardPreviousePolicyDetails"
