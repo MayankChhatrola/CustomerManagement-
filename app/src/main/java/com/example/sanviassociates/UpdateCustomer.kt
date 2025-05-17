@@ -224,6 +224,12 @@ class UpdateCustomer : AppCompatActivity() {
             return
         }
 
+        // **CHECK FOR DUPLICATE NAME HERE**
+        if (databaseHelper.isFullNameExists(customerName)) {
+            Toast.makeText(this, "Full Name already registered. Please use a different name.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val customerUpdateResult = databaseHelper.updateCustomerData(customerEntryId, customerData)
 
         if (customerUpdateResult == 0) {
@@ -323,6 +329,13 @@ class UpdateCustomer : AppCompatActivity() {
         val ifsc = binding.etIfsc.text.toString().trim()
         val micr = binding.etMicr.text.toString().trim()
         val pincode = binding.etPincode.text.toString().trim()
+        val accountHolderName = binding.etAccountHolderName.text.toString().trim()
+        val fullName = binding.etFullName.text.toString().trim()
+
+        if (!accountHolderName.equals(fullName, ignoreCase = true)) {
+            Toast.makeText(this, "Full name must match account holder name", Toast.LENGTH_SHORT).show()
+            return false
+        }
 
         val mobileRegex = Regex("^[6-9]\\d{9}$")
         if (!mobileRegex.matches(mobile)) {

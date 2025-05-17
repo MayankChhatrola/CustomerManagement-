@@ -85,6 +85,7 @@
                             android:layout_marginRight="@dimen/_10sdp"
                             android:layout_centerVertical="true"
                             android:text="Personal Details"
+                            android:textAllCaps="true"
                             android:textStyle="bold"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_15sdp" />
@@ -291,7 +292,10 @@
                                     android:layout_height="@dimen/_40sdp"
                                     android:background="@drawable/edittext_bg"
                                     android:hint="Nomminee Date of Birth"
-                                    android:padding="8dp"
+                                    android:paddingBottom="@dimen/_8sdp"
+                                    android:paddingEnd="@dimen/_8sdp"
+                                    android:paddingTop="@dimen/_8sdp"
+                                    android:paddingStart="@dimen/_14sdp"
                                     android:textSize="@dimen/_14sdp" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -330,6 +334,7 @@
                             android:layout_marginRight="@dimen/_10sdp"
                             android:text="Family Details"
                             android:textStyle="bold"
+                            android:textAllCaps="true"
                             android:layout_centerVertical="true"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_15sdp" />
@@ -807,6 +812,7 @@
                             android:layout_marginRight="@dimen/_10sdp"
                             android:text="Medical Details"
                             android:textStyle="bold"
+                            android:textAllCaps="true"
                             android:layout_centerVertical="true"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_15sdp" />
@@ -954,6 +960,7 @@
                             android:layout_marginRight="@dimen/_10sdp"
                             android:text="Other Details"
                             android:textStyle="bold"
+                            android:textAllCaps="true"
                             android:layout_centerVertical="true"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_15sdp" />
@@ -1208,6 +1215,7 @@
                             android:layout_marginRight="@dimen/_10sdp"
                             android:text="Previous Policy"
                             android:textStyle="bold"
+                            android:textAllCaps="true"
                             android:layout_centerVertical="true"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_15sdp" />

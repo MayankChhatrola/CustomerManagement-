@@ -254,4 +254,15 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         return Triple(customerCursor, policyCursor, familyCursor)
     }
+
+    fun isFullNameExists(fullName: String): Boolean {
+        val db = readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT 1 FROM $CUSTOMER_TABLE WHERE $CUSTOMER_COLUMN_FULL_NAME = ? LIMIT 1",
+            arrayOf(fullName)
+        )
+        val exists = cursor.moveToFirst()
+        cursor.close()
+        return exists
+    }
 }

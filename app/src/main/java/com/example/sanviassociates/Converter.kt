@@ -72,6 +72,7 @@ class Converter : AppCompatActivity() {
 
         val datePicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText("Select Date")
+  //          .setTheme(R.style.CustomMaterialDatePicker)
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .setCalendarConstraints(constraintsBuilder)
             .build()
